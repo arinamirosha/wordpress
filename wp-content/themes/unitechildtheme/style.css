@@ -1,0 +1,62 @@
+/**
+ * Theme Name: My Child Theme
+ * Template: unite
+ */
+@import url('../unite/style.css');
+
+.film {
+    padding: 10px;
+}
+
+.text-trancate {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    white-space: nowrap;
+    width: 90%;
+}
+
+.section-divider {
+    display: none;
+}
+
+.taxes-box {
+    background-color: #e9e2f3;
+    border-radius: 20px;
+    margin-left: -15px;
+    padding: 15px;
+}
+
+.taxes-str {
+    padding: 15px 0;
+}
+
+.search-form-right {
+    text-align: right;
+}
+
+.warranty-box {
+    background: white;
+    border-radius: 10px;
+    color: #708090;
+    margin: 25px;
+    padding: 10px;
+    text-align: center;
+}
+
+.welcome-page-main {
+    margin: 30px;
+}
+
+.floating-column {
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 30px;
+}
+
+.price {
+    color: #54397E;
+    font-weight: bold;
+    font-size: 20px;
+}
