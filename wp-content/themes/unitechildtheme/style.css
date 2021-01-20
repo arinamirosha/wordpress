@@ -60,3 +60,18 @@
     font-weight: bold;
     font-size: 20px;
 }
+
+span.search-terms {
+    background: #edeaf6;
+    font-weight: bold;
+}
+
+.right {
+    float: left;
+    width: 140px;
+}
+
+.left {
+    float: left;
+    width: 140px;
+}

@@ -18,6 +18,17 @@
 				</nav>
 
                 <?php if (current_user_can('level_10')) {
+                    global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
+                    if($is_lynx)       echo 'lynx ';
+                    elseif($is_gecko)  echo 'gecko ';
+                    elseif($is_opera)  echo 'opera ';
+                    elseif($is_NS4)    echo 'ns4 ';
+                    elseif($is_safari) echo 'safari ';
+                    elseif($is_chrome) echo 'chrome ';
+                    elseif($is_IE)     echo 'ie ';
+                    else               echo 'unknown ';
+                    if($is_iphone) echo 'iphone ';
+
                     echo get_num_queries() . ' queries in ';
                     echo timer_stop() . ' seconds';
                 } ?>

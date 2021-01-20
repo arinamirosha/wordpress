@@ -17,6 +17,21 @@
                     any budget.</p>
             </div>
 
+            <div class="row">
+                <?php // display categories in columns
+                $cats = explode("<br />",wp_list_categories('title_li=&echo=0&depth=1&style=none&taxonomy=categories'));
+                $cat_n = count($cats) - 1;
+                for ( $i = 0; $i < $cat_n; $i++ ) :
+                    if ( $i < $cat_n / 2 ) :
+                        $cat_left = $cat_left . '<li>' . $cats[$i] . '</li>';
+                    elseif ( $i >= $cat_n / 2 ):
+                        $cat_right = $cat_right . '<li>' . $cats[$i] . '</li>';
+                    endif;
+                endfor; ?>
+                <ul class="left"><?php echo $cat_left;?></ul>
+                <ul class="right"><?php echo $cat_right;?></ul>
+            </div>
+
             <div class="floating-column">
                 <h2>Luxurious Sofas</h2>
                 <?php echo do_shortcode('[catposts terms="sofas"]'); ?>

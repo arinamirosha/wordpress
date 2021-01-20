@@ -14,7 +14,14 @@
             </a>
         </div>
         <div class="col-md-8">
-            <a class="h5" href="<?php the_permalink() ?>"><?php the_title() ?></a><br>
+            <?php // highlight search terms in title
+            $title = get_the_title();
+            if (is_search()) {
+                $keys  = explode(" ", $s);
+                $title = preg_replace('/('.implode('|',$keys).')/iu','<span class="search-terms">\0</span>',$title);
+            }
+            ?>
+            <a class="h5" href="<?php the_permalink() ?>"><?php echo $title; ?></a><br>
 			<?php
 			$id = get_the_ID();
 			the_terms( $id, 'actors', "<span class='text-trancate'>" . __( 'Actors:', 'unitechild' ) . ' ', ', ', '</span><br>' );

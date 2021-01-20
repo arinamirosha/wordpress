@@ -18,6 +18,16 @@ get_header(); ?>
                 <?php
                 echo '<h1 class="page-title">' . post_type_archive_title('', false) . '</h1>';
                 the_archive_description( '<div class="taxonomy-description">', '</div>' );
+
+                if (current_user_can('level_10')) {
+                    global $wpdb;
+                    $x = $wpdb->get_var($wpdb->prepare(
+                        "SELECT sum(meta_value) FROM $wpdb->posts wp_p LEFT JOIN $wpdb->postmeta wp_pm ON wp_p.id = wp_pm.post_id "
+                        . "WHERE post_type = 'products' AND post_status = 'publish' AND meta_key='price'"
+                    ));
+                    echo '<p class="h3">Общая стоимость товаров: '. $x . ' руб.</p>';
+                }
+
                 ?>
             </header><!-- .page-header -->
 
