@@ -18,6 +18,6 @@ $('document').ready(function () {
     $('.delivery').hide();
     $('#pickup').change(function () {
         $('.delivery').toggle();
-        $('#shop_address').toggle();
+        $('.pickup').toggle();
     })
 })

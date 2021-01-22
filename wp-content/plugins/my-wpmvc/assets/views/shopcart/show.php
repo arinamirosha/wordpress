@@ -69,9 +69,15 @@
     </div>
     <div class="row">
         <div class="col-sm-2"><label for="pickup">Самовывоз</label></div>
-        <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" checked>
-            <span id="shop_address">Здесь указан адрес магазина и график работы Здесь указан адрес магазина и график работы</span>
-        </div>
+        <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" checked></div>
+    </div>
+    <div class="row pickup">
+        <div class="col-sm-2"><label for="address_shop">Адрес</label></div>
+        <div class="col-sm-6"><span name="address_shop"><?php echo esc_attr( get_option('address', '') ) ?></span></div>
+    </div>
+    <div class="row pickup">
+        <div class="col-sm-2"><label for="schedule_shop">График</label></div>
+        <div class="col-sm-6"><span name="schedule_shop"><?php echo esc_attr( get_option('schedule', '') ) ?></span></div>
     </div>
     <div class="row delivery">
         <div class="col-sm-2"><label for="address">Адрес</label></div>
