@@ -111,6 +111,20 @@ class ShopCartController extends Controller
             $shopcart_item->delete();
         }
     }
+
+    public function change_quantity()
+    {
+        $quantity = Request::input( 'quantity', 0, true, 'intval' );
+        if ( ! $quantity || $quantity < 1 ) return;
+
+        $shopcart_id = Request::input( 'shopcart_id', 0, true, 'intval' );
+        $shopcart_item = get_shopcart_item( $shopcart_id );
+
+        if ($shopcart_item) {
+            $shopcart_item->quantity = $quantity;
+            $shopcart_item->save();
+        }
+    }
     
     // FILTERS AND ACTIONS
     

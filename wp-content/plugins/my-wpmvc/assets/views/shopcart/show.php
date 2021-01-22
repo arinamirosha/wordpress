@@ -21,11 +21,14 @@
 <?php foreach ($shopcarts as $shopcart) { ?>
     <div class="row shopcart-item">
         <div class="col-sm-3"><a href="<?php the_permalink($shopcart->product_id); ?>"><?php echo $shopcart->product->title ?></a></div>
-        <div class="col-sm-2"><?php echo $shopcart->quantity ?> шт.
-<!--            <form action="" method="post">-->
-<!--                <input type="hidden" name="shopcart_id" value="--><?php //echo $shopcart->ID ?><!--" readonly>-->
-<!--                <input class="form-input--50" type="number" name="quantity" value="--><?php //echo $shopcart->quantity ?><!--"> шт.-->
-<!--            </form>-->
+        <div class="col-sm-2">
+            <form action="" method="post" id="quantity-form-<?php echo $shopcart->ID ?>">
+                <input type="hidden" name="shopcart_id" value="<?php echo $shopcart->ID ?>" readonly>
+                <input type="checkbox" class="hidden" name="change_qty" checked>
+                <input class="form-input--50" type="number" name="quantity" min="1" step="1" value="<?php echo $shopcart->quantity ?>"
+                       onchange="submit_qty_form(<?php echo $shopcart->ID ?>)"
+                       onkeypress="show_info()"> шт.
+            </form>
         </div>
         <div class="col-sm-2"><?php echo $shopcart->product->price ?> руб.</div>
         <div class="col-sm-2"><?php echo $shopcart->quantity * $shopcart->product->price ?> руб.</div>
@@ -39,6 +42,7 @@
     </div>
 <?php } ?>
 
+<span id="info" class="display-none">Нажмите Enter, чтобы применить</span>
 <hr />
 
 <div class="row h5">

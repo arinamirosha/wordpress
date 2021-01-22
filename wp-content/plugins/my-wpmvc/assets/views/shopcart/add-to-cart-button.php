@@ -10,7 +10,7 @@
 ?>
 
 <form action='' method="post">
-    <input class="form-input--10" type="number" min="1" name="quantity" value="1"> шт.
+    <input class="form-input--10" type="number" min="1" step="1" name="quantity" value="1"> шт.
     <input type="checkbox" class="hidden" name="add_to_cart" checked>
     <button type="submit">Добавить в корзину</button>
 </form>

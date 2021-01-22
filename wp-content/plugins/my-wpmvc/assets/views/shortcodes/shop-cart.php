@@ -12,7 +12,11 @@
 use MyWpmvc\Controllers\ShopCartController;
 
 if (isset($_POST) && !empty($_POST)) {
-    ShopCartController::remove_cart_item();
+    if ($_POST['delete_cart_item']) {
+        ShopCartController::remove_cart_item();
+    } elseif ($_POST['change_qty']) {
+        ShopCartController::change_quantity();
+    }
 }
 
 ShopCartController::show();
