@@ -17,9 +17,6 @@ if (isset($_POST) && !empty($_POST)) {
     ShopCartController::add_to_cart();
 }
 
+ShopCartController::show_add_to_cart_button();
+
 ?>
-<!-- сдлеать условаие if logged in and product has price, хотя второе вроде и так работает -->
-<form action='' method="post">
-    <input type="checkbox" class="hidden" name="add_to_cart" checked>
-    <button type="submit">Добавить в корзину</button>
-</form>

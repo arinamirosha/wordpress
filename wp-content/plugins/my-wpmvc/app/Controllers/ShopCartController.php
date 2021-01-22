@@ -27,20 +27,37 @@ class ShopCartController extends Controller
     
     public function add_to_cart()
     {
+        $quantity = Request::input( 'quantity', 0, true, 'intval' );
+        if ( ! $quantity || $quantity < 1 ) return;
+
         $product_id = get_the_ID();
         $product = Product::find( $product_id );
         $user_id = get_current_user_id();
-        global $wpdb;
-        $cart_item_id = $wpdb->get_var( "SELECT ID FROM {$wpdb->posts} as p LEFT JOIN {$wpdb->postmeta} as pm ON p.ID = pm.post_id " . "WHERE post_status='publish' AND post_type='shopcart' AND post_author={$user_id} AND " . "( (pm.meta_key='product_id' AND pm.meta_value={$product_id}) OR " . "(pm.meta_key='order_status' AND pm.meta_value=" . ShopCart::IN_CART . ") )" . "GROUP BY ID HAVING count(ID)=2" );
+
+        $builder = wp_query_builder();
+        $cart_item_id = $builder->select( 'ID' )
+                                ->from( 'posts as a' )
+                                ->join('postmeta as b', [ [ 'key_a' => 'a.ID', 'key_b' => 'b.post_id' ] ], true )
+                                ->where( [
+                                    'post_status' => 'publish',
+                                    'post_type' => 'shopcart',
+                                    'post_author' => $user_id,
+                                    'raw' => "( (b.meta_key='product_id' AND b.meta_value=$product_id) OR "
+                                             . "(b.meta_key='order_status' AND b.meta_value=" . ShopCart::IN_CART . ") )"
+                                ] )
+                                ->group_by('ID' )
+                                ->having( 'count(ID) = 2' )
+                                ->value();
+
         if ( $cart_item_id ) {
             $cart_item = ShopCart::find( $cart_item_id );
-            $cart_item->quantity++;
+            $cart_item->quantity += $quantity;
             $cart_item->save();
         } else {
             $cart_item = new ShopCart();
             $cart_item->title = $product->title;
             $cart_item->product_id = $product_id;
-            $cart_item->quantity = 1;
+            $cart_item->quantity = $quantity;
             $cart_item->p_status = 'publish';
             $cart_item->order_status = ShopCart::IN_CART;
             $cart_item->save();
@@ -66,27 +83,32 @@ class ShopCartController extends Controller
             return new ShopCart( $row );
         } );
 
-        $total = 0;
-        foreach ( $shopcarts as $shopcart ) {
-            $product = Product::find( $shopcart->product_id );
-            $shopcart->product = $product;
-            $total += $product->price * $shopcart->quantity;
+        if ($shopcarts) {
+            $total = 0;
+            foreach ( $shopcarts as $shopcart ) {
+                $product = Product::find( $shopcart->product_id );
+                $shopcart->product = $product;
+                $total += $product->price * $shopcart->quantity;
+            }
+
+            require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
+        } else {
+            require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/empty.php';
         }
 
-        require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
+    }
+
+    public function show_add_to_cart_button()
+    {
+        require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/add-to-cart-button.php';
     }
 
     public function remove_cart_item()
     {
         $shopcart_id = Request::input( 'shopcart_id', 0, true, 'intval' );
-        if ($shopcart_id) {
-            $shopcart_item = ShopCart::find($shopcart_id);
-            if ($shopcart_item &&
-                $shopcart_item->author == get_current_user_id() &&
-                $shopcart_item->order_status == ShopCart::IN_CART &&
-                $shopcart_item->p_status == 'publish') {
-                $shopcart_item->delete();
-            }
+        $shopcart_item = get_shopcart_item( $shopcart_id );
+        if ($shopcart_item) {
+            $shopcart_item->delete();
         }
     }
     
