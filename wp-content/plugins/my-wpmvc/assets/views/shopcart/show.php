@@ -43,6 +43,7 @@
 <?php } ?>
 
 <span id="info" class="display-none">Нажмите Enter, чтобы применить</span>
+
 <hr />
 
 <div class="row h5">
@@ -50,3 +51,40 @@
     <div class="col-sm-2">Итого</div>
     <div class="col-sm-5"><?php echo $total ?> руб.</div>
 </div>
+
+<hr />
+
+<form action="">
+    <div class="row">
+        <div class="col-sm-2"><label for="name">Имя</label></div>
+        <div class="col-sm-6"><input type="text" name="name" required></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label for="surname">Фамилия</label></div>
+        <div class="col-sm-6"><input type="text" name="surname" required></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label for="patronymic">Отчество</label></div>
+        <div class="col-sm-6"><input type="text" name="patronymic" required></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label for="pickup">Самовывоз</label></div>
+        <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" checked>
+            <span id="shop_address">Здесь указан адрес магазина и график работы Здесь указан адрес магазина и график работы</span>
+        </div>
+    </div>
+    <div class="row delivery">
+        <div class="col-sm-2"><label for="address">Адрес</label></div>
+        <div class="col-sm-6"><input type="text" name="address"></div>
+    </div>
+    <div class="row delivery">
+        <div class="col-sm-2"><label for="phone_number">Тел. <i class="fa fa-phone"></i></label></div>
+        <div class="col-sm-6"><input type="text" name="phone_number"></div>
+    </div>
+
+    <hr />
+
+    <div class="row text-center">
+        <div class="col-sm-12"><button type="submit">Оформить заказ</button></div>
+    </div>
+</form>

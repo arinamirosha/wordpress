@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="custom quantity when adding to cart + correct sql when adding">
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" afterDir="false" />
+    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="changing quantity in cart">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/css/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/css/my-css.css" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/css/my-css.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/add-to-cart-button.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/add-to-cart-button.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/unitechildtheme/content-single-products.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/unitechildtheme/content-single-products.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +46,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../inotravel" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -111,7 +109,7 @@
       <workItem from="1611041082328" duration="28889000" />
       <workItem from="1611127001136" duration="4552000" />
       <workItem from="1611224330678" duration="18031000" />
-      <workItem from="1611298945992" duration="20268000" />
+      <workItem from="1611298945992" duration="25644000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -176,7 +174,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611316115195</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="changing quantity in cart">
+      <created>1611324107011</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1611324107011</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +204,7 @@
     <MESSAGE value="custom shopping cart: add and show" />
     <MESSAGE value="delete shopcart item button" />
     <MESSAGE value="custom quantity when adding to cart + correct sql when adding" />
-    <option name="LAST_COMMIT_MESSAGE" value="custom quantity when adding to cart + correct sql when adding" />
+    <MESSAGE value="changing quantity in cart" />
+    <option name="LAST_COMMIT_MESSAGE" value="changing quantity in cart" />
   </component>
 </project>

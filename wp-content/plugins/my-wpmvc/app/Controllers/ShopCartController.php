@@ -262,8 +262,14 @@ class ShopCartController extends Controller
      *
      * @return
      */
-    public function enqueue_load_fa()
+    public function enqueue_scripts_styles()
     {
-        wp_enqueue_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' );
+//        wp_register_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' );
+//        wp_enqueue_style( 'font-awesome' );
+
+        wp_register_script( 'load_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
+        wp_enqueue_script( 'load_jquery'  );
     }
+
+
 }

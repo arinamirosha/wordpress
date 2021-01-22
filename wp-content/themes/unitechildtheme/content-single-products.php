@@ -31,9 +31,9 @@
                 Цена: <?php echo get_post_meta( get_the_ID(), 'price', true ); ?> руб.
             </div>
             <?php
-            $productname = get_the_title();
-            $price = get_post_meta( get_the_ID(), 'price', true );
-            echo print_wp_cart_button_for_product($productname, $price);
+//            $productname = get_the_title();
+//            $price = get_post_meta( get_the_ID(), 'price', true );
+//            echo print_wp_cart_button_for_product($productname, $price);
             echo do_shortcode('[shop_cart_add_button]');
             ?>
         <?php endif; ?>
