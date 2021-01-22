@@ -11,5 +11,9 @@
 
 use MyWpmvc\Controllers\ShopCartController;
 
+if (isset($_POST) && !empty($_POST)) {
+    ShopCartController::remove_cart_item();
+}
+
 ShopCartController::show();
 ?>
