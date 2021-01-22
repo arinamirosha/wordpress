@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="custom shopping cart: add and show">
+    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="delete shopcart item button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
@@ -108,7 +108,7 @@
       <workItem from="1611041082328" duration="28889000" />
       <workItem from="1611127001136" duration="4552000" />
       <workItem from="1611224330678" duration="18031000" />
-      <workItem from="1611298945992" duration="6216000" />
+      <workItem from="1611298945992" duration="6254000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -124,7 +124,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611245786927</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="delete shopcart item button">
+      <created>1611305895490</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1611305895490</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -145,6 +152,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="custom shopping cart: add and show" />
-    <option name="LAST_COMMIT_MESSAGE" value="custom shopping cart: add and show" />
+    <MESSAGE value="delete shopcart item button" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete shopcart item button" />
   </component>
 </project>
