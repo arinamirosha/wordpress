@@ -4,8 +4,8 @@
 /bower_components
 
 # Compiled assets:
-/assets/css
-/assets/js
+#/assets/css
+#/assets/js
 
 # Generated tmp:
 /builds

@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="delete shopcart item button">
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/css/my-css.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/.gitignore" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +105,7 @@
       <workItem from="1611041082328" duration="28889000" />
       <workItem from="1611127001136" duration="4552000" />
       <workItem from="1611224330678" duration="18031000" />
-      <workItem from="1611298945992" duration="7218000" />
+      <workItem from="1611298945992" duration="7581000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -145,7 +142,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611306670184</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="delete shopcart item button">
+      <created>1611306895461</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1611306895461</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

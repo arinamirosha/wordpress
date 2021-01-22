@@ -1,0 +1,13 @@
+/**
+ * my-css CSS stylesheet asset.
+ *
+ * @author Arina
+ * @package my-wpmvc
+ * @version 1.0.0
+ */
+
+.del-button--no-style {
+    background-color: #fff;
+    border: none;
+    outline: none;
+}
