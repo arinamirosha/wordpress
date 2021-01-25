@@ -125,7 +125,7 @@ class ShopCartController extends Controller
             $shopcart_item->save();
         }
     }
-    
+
     // FILTERS AND ACTIONS
     
     /**
@@ -267,8 +267,12 @@ class ShopCartController extends Controller
 //        wp_register_style( 'font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' );
 //        wp_enqueue_style( 'font-awesome' );
 
-        wp_register_script( 'load_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
-        wp_enqueue_script( 'load_jquery'  );
+        // влияет на другие плагины, поэтому исп. jQuery вместо $
+//        wp_register_script( 'load_jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' );
+//        wp_enqueue_script( 'load_jquery'  );
+
+        wp_register_script( 'load_jquery_mask', '//cdn.jsdelivr.net/npm/jquery.maskedinput@1.4.1/src/jquery.maskedinput.min.js' );
+        wp_enqueue_script( 'load_jquery_mask'  );
     }
 
 

@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="order form">
+    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="my-wpmvc plugin settings in menu">
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Order.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/admin/metaboxes/order/meta.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/shop-cart.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,11 +67,11 @@
       <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-custom-plugin\lang" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc" />
+      <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\assets\js" />
+      <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\assets\raw\js" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unitechildtheme" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-test-lang" />
-      <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unitechildtheme\css" />
-      <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unitechildtheme\js" />
-      <recent name="C:\OpenServer\domains\wordpress\wp-content\themes" />
     </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -107,7 +113,8 @@
       <workItem from="1611041082328" duration="28889000" />
       <workItem from="1611127001136" duration="4552000" />
       <workItem from="1611224330678" duration="18031000" />
-      <workItem from="1611298945992" duration="29567000" />
+      <workItem from="1611298945992" duration="29641000" />
+      <workItem from="1611560674187" duration="27573000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -186,7 +193,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611329534169</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="my-wpmvc plugin settings in menu">
+      <created>1611334907005</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1611334907005</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +225,7 @@
     <MESSAGE value="custom quantity when adding to cart + correct sql when adding" />
     <MESSAGE value="changing quantity in cart" />
     <MESSAGE value="order form" />
-    <option name="LAST_COMMIT_MESSAGE" value="order form" />
+    <MESSAGE value="my-wpmvc plugin settings in menu" />
+    <option name="LAST_COMMIT_MESSAGE" value="my-wpmvc plugin settings in menu" />
   </component>
 </project>

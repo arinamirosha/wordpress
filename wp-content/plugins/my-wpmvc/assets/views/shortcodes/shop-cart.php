@@ -9,6 +9,7 @@
  */
 
 
+use MyWpmvc\Controllers\OrderController;
 use MyWpmvc\Controllers\ShopCartController;
 
 if (isset($_POST) && !empty($_POST)) {
@@ -16,6 +17,8 @@ if (isset($_POST) && !empty($_POST)) {
         ShopCartController::remove_cart_item();
     } elseif ($_POST['change_qty']) {
         ShopCartController::change_quantity();
+    } elseif ($_POST['checkout']) {
+        OrderController::save();
     }
 }
 

@@ -27,6 +27,7 @@ class Main extends Bridge
         $this->add_filter( 'manage_shopcart_posts_columns', 'ShopCartController@custom_filter_add_status_column' );
         $this->add_action( 'manage_shopcart_posts_custom_column', 'ShopCartController@custom_action_fill_status_column' );
         $this->add_action( 'wp_enqueue_scripts', 'ShopCartController@enqueue_scripts_styles' );
+        $this->add_model( 'Order' );
     }
     /**
      * Declaration of admin only WordPress hooks.

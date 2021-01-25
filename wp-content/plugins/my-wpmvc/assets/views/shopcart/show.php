@@ -54,43 +54,112 @@
 
 <hr />
 
-<form action="">
+<?php $form_errors = $GLOBALS['form_errors']; ?>
+
+<form action="" method="post">
     <div class="row">
-        <div class="col-sm-2"><label for="name">Имя</label></div>
-        <div class="col-sm-6"><input type="text" name="name" required></div>
+        <div class="col-sm-2"><label for="first_name">Имя</label></div>
+        <div class="col-sm-6">
+            <input type="text" name="first_name" id="first_name" value="<?php echo $_POST['first_name'] ?>">
+            <?php if ( ! empty($form_errors) && $form_errors['first_name'] ) : ?>
+                <span class="danger">
+                    <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                    <?php echo $form_errors['first_name'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
     </div>
+
     <div class="row">
-        <div class="col-sm-2"><label for="surname">Фамилия</label></div>
-        <div class="col-sm-6"><input type="text" name="surname" required></div>
+        <div class="col-sm-2"><label for="last_name">Фамилия</label></div>
+        <div class="col-sm-6">
+            <input type="text" name="last_name" id="last_name" value="<?php echo $_POST['last_name'] ?>">
+            <?php if ( ! empty($form_errors) && $form_errors['last_name'] ) : ?>
+                <span class="danger">
+                    <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                    <?php echo $form_errors['last_name'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="row">
         <div class="col-sm-2"><label for="patronymic">Отчество</label></div>
-        <div class="col-sm-6"><input type="text" name="patronymic" required></div>
+        <div class="col-sm-6">
+            <input type="text" name="patronymic" id="patronymic" value="<?php echo $_POST['patronymic'] ?>">
+            <?php if ( ! empty($form_errors) && $form_errors['patronymic'] ) : ?>
+                <span class="danger">
+                    <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                    <?php echo $form_errors['patronymic'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="row">
+        <div class="col-sm-2"><label for="phone_number">Тел. <i class="fa fa-phone"></i></label></div>
+        <div class="col-sm-6">
+            <input type="text" name="phone_number" id="phone_number" value="<?php echo $_POST['phone_number'] ?>">
+            <?php if ( ! empty($form_errors) && $form_errors['phone_number'] ) : ?>
+                <span class="danger">
+                    <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                    <?php echo $form_errors['phone_number'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-2"><label for="pickup">Самовывоз</label></div>
-        <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" checked></div>
+        <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" <?php if ( ! $_POST['checkout'] || $_POST['pickup']) echo 'checked' ?>></div>
+    </div>
+
+    <div class="row pickup">
+        <div class="col-sm-2"><strong>Адрес</strong></div>
+        <div class="col-sm-6"><?php echo esc_attr( get_option('address', '') ) ?></div>
     </div>
     <div class="row pickup">
-        <div class="col-sm-2"><label for="address_shop">Адрес</label></div>
-        <div class="col-sm-6"><span name="address_shop"><?php echo esc_attr( get_option('address', '') ) ?></span></div>
+        <div class="col-sm-2"><strong>График</strong></div>
+        <div class="col-sm-6"><?php echo esc_attr( get_option('schedule', '') ) ?></div>
     </div>
-    <div class="row pickup">
-        <div class="col-sm-2"><label for="schedule_shop">График</label></div>
-        <div class="col-sm-6"><span name="schedule_shop"><?php echo esc_attr( get_option('schedule', '') ) ?></span></div>
-    </div>
+
     <div class="row delivery">
         <div class="col-sm-2"><label for="address">Адрес</label></div>
-        <div class="col-sm-6"><input type="text" name="address"></div>
+        <div class="col-sm-6"><input type="text" name="address" id="address" value="<?php echo $_POST['address'] ?>">
+            <?php if ( ! empty($form_errors) && $form_errors['address'] ) : ?>
+                <span class="danger">
+                    <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                    <?php echo $form_errors['address'] ?>
+                </span>
+            <?php endif; ?>
+        </div>
     </div>
     <div class="row delivery">
-        <div class="col-sm-2"><label for="phone_number">Тел. <i class="fa fa-phone"></i></label></div>
-        <div class="col-sm-6"><input type="text" name="phone_number"></div>
+        <div class="col-sm-2"><strong>Доставка</strong></div>
+
+        <?php
+        $free_delivery_from = esc_attr( get_option('free_delivery_from', 0) );
+        $delivery_price = esc_attr( get_option('delivery_price', 0) );
+        ?>
+
+        <?php if ( $delivery_price && ( (! $free_delivery_from) || ( $free_delivery_from && $total < $free_delivery_from )) ) : ?>
+
+            <div class="col-sm-6"><?php echo $delivery_price ?> руб.
+                <?php if ( $free_delivery_from ) : ?>
+                    (бесплатно от <?php echo $free_delivery_from ?> руб.)
+                <?php endif; ?>
+            </div>
+
+        <?php else : ?>
+
+            <div class="col-sm-6">Бесплатно</div>
+
+        <?php endif; ?>
+
     </div>
 
     <hr />
 
     <div class="row text-center">
+        <input type="checkbox" class="hidden" name="checkout" checked>
         <div class="col-sm-12"><button type="submit">Оформить заказ</button></div>
     </div>
 </form>
