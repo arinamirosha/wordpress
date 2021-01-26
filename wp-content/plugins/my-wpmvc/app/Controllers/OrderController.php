@@ -27,16 +27,7 @@ class OrderController extends Controller
     public function save()
     {
         $request_data = Request::all('sanitize_text_field' );
-        $form_errors  = [];
-
-        $arr = ['first_name', 'last_name', 'patronymic', 'phone_number']; // не > 100 символов, required
-        foreach ($arr as $v) {
-            if ($error = sanitize_string($request_data[$v])) $form_errors[$v] = $error;
-        }
-
-        if ( ! $request_data['pickup'] ) {
-            if ($error = sanitize_string($request_data['address'])) $form_errors['address'] = $error;
-        }
+        $form_errors = sanitize_order_request($request_data);
 
         if ( ! empty($form_errors) ) {
             $GLOBALS['form_errors'] = $form_errors; // не ок - вернуть ошибки

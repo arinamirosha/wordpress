@@ -2,6 +2,12 @@
 
 use MyWpmvc\Models\ShopCart;
 
+/**
+ * Get publish shopcart item ('in cart') for current user
+ * @param $shopcart_id
+ *
+ * @return false|object|\WPMVC\MVC\Traits\FindTrait
+ */
 function get_shopcart_item( $shopcart_id ) {
     $shopcart_item = ShopCart::find($shopcart_id);
     if ($shopcart_item &&
@@ -12,14 +18,47 @@ function get_shopcart_item( $shopcart_id ) {
     }
     return false;
 }
-function sanitize_string( $str ) {
-    if ( strlen($str) > 100) {
-        return 'Не > 100 символов';
-    } elseif ( empty( $str ) ) {
+
+/**
+ * Check string's length and requirement, return error message or false
+ * @param $str
+ * @param int $max_len
+ * @param bool $is_required
+ *
+ * @return false|string
+ */
+function sanitize_string( $str, $max_len = 255, $is_required = true ) {
+    if ( strlen($str) > $max_len) {
+        return 'Не > ' . $max_len . ' символов';
+    } elseif ( $is_required && empty( $str ) ) {
         return 'Заполните';
     }
     return false;
 }
+
+/**
+ * Sanitize order request data
+ * @param $request_data
+ *
+ * @return array
+ */
+function sanitize_order_request( $request_data ) {
+    $form_errors  = [];
+
+    $arr = ['first_name', 'last_name', 'patronymic', 'phone_number'];
+    foreach ($arr as $v) {
+        if ($error = sanitize_string($request_data[$v], 100)) $form_errors[$v] = $error;
+    }
+    if ( ! $request_data['pickup'] ) {
+        if ($error = sanitize_string($request_data['address'], 150)) $form_errors['address'] = $error;
+    }
+
+    return $form_errors;
+}
+
+
+
+//SETTINGS FOR ADMIN
 
 // Add my-wpmvc plugin settings to menu
 
@@ -51,6 +90,7 @@ function my_wpmvc_options_page_output(){
 }
 
 // Add setting options
+
 add_action('admin_init', 'my_wpmvc_settings');
 function my_wpmvc_settings(){
     register_setting( 'option_group', 'address', 'string' );

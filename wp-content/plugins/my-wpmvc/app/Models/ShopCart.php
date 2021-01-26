@@ -39,9 +39,15 @@ class ShopCart extends Model
         'product_id'   => 'meta_product_id',
         'quantity'     => 'meta_quantity',
         'order_status' => 'meta_order_status',
+        'total_price'  => 'func_total_price',
     ];
 
-    public function product()
+    protected function total_price()
+    {
+        return $this->product->price * $this->quantity;
+    }
+
+    protected function product()
     {
         return $this->has_one( Product::class, 'product_id' );
     }

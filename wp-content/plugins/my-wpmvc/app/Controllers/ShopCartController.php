@@ -2,6 +2,7 @@
 
 namespace MyWpmvc\Controllers;
 
+use MyWpmvc\Main;
 use MyWpmvc\Models\Product;
 use MyWpmvc\Models\ShopCart;
 use WPMVC\MVC\Controllers\ModelController as Controller;
@@ -83,19 +84,10 @@ class ShopCartController extends Controller
             return new ShopCart( $row );
         } );
 
-        if ($shopcarts) {
-            $total = 0;
-            foreach ( $shopcarts as $shopcart ) {
-                $product = Product::find( $shopcart->product_id );
-                $shopcart->product = $product;
-                $total += $product->price * $shopcart->quantity;
-            }
+        //Fatal error: Uncaught Error: Using $this when not in object context
+//        $this->view->show('view.shopcart.show', compact('shopcarts'));
 
-            require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
-        } else {
-            require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/empty.php';
-        }
-
+        require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
     }
 
     public function show_add_to_cart_button()
