@@ -70,19 +70,23 @@ class ShopCartController extends Controller
         $user_id = get_current_user_id();
         $builder = wp_query_builder();
 
-        $shopcarts = $builder->select( '*' )->from( 'posts as a' )->join( 
-            'postmeta as b',
-            [ [ 'key_a' => 'a.ID', 'key_b' => 'b.post_id' ] ],
-            true
-         )->where( [
-            'post_status' => 'publish',
-            'post_type' => 'shopcart',
-            'post_author' => $user_id,
-            'meta_key' => 'order_status',
-            'meta_value' => ShopCart::IN_CART,
-        ] )->get( ARRAY_A, function ( $row ) {
-            return new ShopCart( $row );
-        } );
+        $shopcarts = $builder->select( '*' )
+                             ->from( 'posts as a' )
+                             ->join(
+                                 'postmeta as b',
+                                 [ [ 'key_a' => 'a.ID', 'key_b' => 'b.post_id' ] ],
+                                 true
+                             )
+                             ->where( [
+                                 'post_status' => 'publish',
+                                 'post_type'   => 'shopcart',
+                                 'post_author' => $user_id,
+                                 'meta_key'    => 'order_status',
+                                 'meta_value'  => ShopCart::IN_CART,
+                             ] )
+                             ->get( ARRAY_A, function ( $row ) {
+                                 return new ShopCart( $row );
+                             } );
 
         //Fatal error: Uncaught Error: Using $this when not in object context
 //        $this->view->show('view.shopcart.show', compact('shopcarts'));

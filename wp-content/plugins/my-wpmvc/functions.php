@@ -61,10 +61,9 @@ function sanitize_order_request( $request_data ) {
 //SETTINGS FOR ADMIN
 
 // Add my-wpmvc plugin settings to menu
-
 add_action('admin_menu', 'add_my_wpmvc_page');
 function add_my_wpmvc_page(){
-    add_options_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
+    add_menu_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
 }
 function my_wpmvc_options_page_output(){
     ?>
@@ -90,7 +89,6 @@ function my_wpmvc_options_page_output(){
 }
 
 // Add setting options
-
 add_action('admin_init', 'my_wpmvc_settings');
 function my_wpmvc_settings(){
     register_setting( 'option_group', 'address', 'string' );
@@ -117,3 +115,42 @@ function fill_delivery_price_field(){
 function fill_free_delivery_from_field(){
     printf( '<input type="number" min="0" step="10" name="free_delivery_from" value="%s" /> руб.', esc_attr( get_option('free_delivery_from', 0) ) );
 }
+
+
+
+// Add my-wpmvc plugin submenu settings
+
+add_filter( 'set_screen_option_' . 'promocodes_per_page', function( $status, $option, $value ){
+    return (int) $value;
+}, 10, 3 );
+
+add_action('admin_menu', 'my_wpmvc_submenu');
+function my_wpmvc_submenu() {
+    $hook = add_submenu_page( 'my_wpmvc', 'Промокоды', 'Промокоды',
+        'manage_options', 'my_wpmvc_promocodes','my_wpmvc_promocodes_page_output');
+    add_action( "load-$hook", 'example_table_page_load' );
+}
+function example_table_page_load(){
+    require_once __DIR__ . '/app/class-Promocodes_List_Table.php';
+    $GLOBALS['Promocodes_List_Table'] = new Promocodes_List_Table();
+}
+
+function my_wpmvc_promocodes_page_output(){
+    ?>
+    <div class="wrap">
+        <h2><?php echo get_admin_page_title() ?></h2>
+
+        <form action="" method="POST">
+            <input type="hidden" name="page" value="my_wpmvc_promocodes" />
+            <?php $GLOBALS['Promocodes_List_Table']->search_box('search', 'search_id'); ?>
+        </form>
+
+        <form action="" method="POST">
+            <?php $GLOBALS['Promocodes_List_Table']->display(); ?>
+        </form>
+
+    </div>
+    <?php
+}
+
+
