@@ -88,8 +88,13 @@ class ShopCartController extends Controller
                                  return new ShopCart( $row );
                              } );
 
+        $total = 0;
+        foreach ($shopcarts as $shopcart) {
+            $total += $shopcart->total_price;
+        }
+
         //Fatal error: Uncaught Error: Using $this when not in object context
-//        $this->view->show('view.shopcart.show', compact('shopcarts'));
+//        $this->view->show('view.shopcart.show', compact('shopcarts', 'total'));
 
         require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
     }

@@ -34,9 +34,11 @@ class Promocode extends Model
      */
     protected $aliases = [
         'title'          => 'post_title',
+        'date'           => 'post_date',
+        'p_status'       => 'post_status',
         'discount'       => 'meta_discount',
         'type_discount'  => 'meta_type_discount',
-        'date'           => 'post_date',
+        'number_of_uses' => 'meta_number_of_uses',
     ];
     /**
      * Basic registry definition.
@@ -46,8 +48,8 @@ class Promocode extends Model
     protected $registry = [
         'public'             => true,
         'publicly_queryable' => true,
-        'show_ui'            => true,
-        'show_in_menu'       => true, // false
+        'show_ui'            => false,
+        'show_in_menu'       => false,
         'query_var'          => true,
         'capability_type'    => 'post',
         'has_archive'        => false,

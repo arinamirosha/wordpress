@@ -2,9 +2,10 @@
 
 namespace MyWpmvc\Controllers;
 
-use AC\Request;
 use MyWpmvc\Models\Promocode;
 use WPMVC\MVC\Controllers\ModelController as Controller;
+use WPMVC\Request;
+
 /**
  * PromocodesController
  * WordPress MVC automated model controller.
@@ -25,9 +26,27 @@ class PromocodesController extends Controller
 
     public function delete()
     {
-        $promids = $_POST['promids'];
+        $promids = Request::input('promids');
         foreach ($promids as $promid) {
             Promocode::find($promid)->delete();
+        }
+    }
+
+    public function save()
+    {
+        $request_data = Request::all();
+        $form_errors = sanitize_promocode_request($request_data);
+
+        if ( ! empty($form_errors) ) {
+            $GLOBALS['form_errors'] = $form_errors;
+        } else {
+            $promocode = new Promocode();
+            $promocode->title = str_replace(' ', '', $request_data['title']);
+            $promocode->discount = $request_data['discount'];
+            $promocode->type_discount = $request_data['type_discount'];
+            $promocode->number_of_uses = 0;
+            $promocode->p_status = 'publish';
+            $promocode->save();
         }
     }
 }

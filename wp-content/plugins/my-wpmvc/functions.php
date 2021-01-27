@@ -1,5 +1,7 @@
 <?php
 
+use MyWpmvc\Controllers\PromocodesController;
+use MyWpmvc\Models\Promocode;
 use MyWpmvc\Models\ShopCart;
 
 /**
@@ -37,6 +39,33 @@ function sanitize_string( $str, $max_len = 255, $is_required = true ) {
 }
 
 /**
+ * Check number's type and min value, return error message or false
+ * @param $str
+ * @param int $max_len
+ * @param bool $is_required
+ *
+ * @return false|string
+ */
+function sanitize_number( $number, $type = 'int', $min = 0, $is_required = true ) {
+    switch ($type) {
+        case 'int':
+            $number = (int) $number;
+            break;
+        case 'float':
+            $number = (float) $number;
+            break;
+    }
+
+    if ( $number < $min ) {
+        return 'Минимум ' . $min;
+    } elseif ( $is_required && empty( $number ) ) {
+        return 'Заполните';
+    }
+
+    return false;
+}
+
+/**
  * Sanitize order request data
  * @param $request_data
  *
@@ -47,10 +76,51 @@ function sanitize_order_request( $request_data ) {
 
     $arr = ['first_name', 'last_name', 'patronymic', 'phone_number'];
     foreach ($arr as $v) {
-        if ($error = sanitize_string($request_data[$v], 100)) $form_errors[$v] = $error;
+        if ($error = sanitize_string($request_data[$v], 100)) {
+            $form_errors[$v] = $error;
+        }
     }
     if ( ! $request_data['pickup'] ) {
-        if ($error = sanitize_string($request_data['address'], 150)) $form_errors['address'] = $error;
+        if ($error = sanitize_string($request_data['address'], 150)) {
+            $form_errors['address'] = $error;
+        }
+    }
+
+    return $form_errors;
+}
+
+/**
+ * Sanitize promo code request data
+ * @param $request_data
+ *
+ * @return array
+ */
+function sanitize_promocode_request( $request_data ) {
+    $form_errors  = [];
+
+    if ( $error = sanitize_string($request_data['title'], 50) ) {
+        $form_errors['title'] = $error;
+    } else {
+        $promocode_title = str_replace(' ', '', $request_data['title']);
+        $builder = wp_query_builder();
+        $promocode_id = $builder->select( 'ID' )
+                                ->from( 'posts' )
+                                ->where( [
+                                    'post_title' => $promocode_title,
+                                    'post_type' => 'promocode',
+                                ] )
+                                ->value();
+        if ($promocode_id) {
+            $form_errors['title'] = 'Уже существует';
+        }
+    }
+
+    if ( $error = sanitize_number($request_data['discount'], 'float') ) {
+        $form_errors['discount'] = $error;
+    }
+    $t_discount = $request_data['type_discount'];
+    if ( ! isset($t_discount) || ( $t_discount != Promocode::PERCENT && $t_discount != Promocode::MONEY ) ) {
+        $form_errors['type_discount'] = 'Ошибка';
     }
 
     return $form_errors;
@@ -60,7 +130,8 @@ function sanitize_order_request( $request_data ) {
 
 //SETTINGS FOR ADMIN
 
-// Add my-wpmvc plugin settings to menu
+// Add my-wpmvc plugin menu settings (options)
+
 add_action('admin_menu', 'add_my_wpmvc_page');
 function add_my_wpmvc_page(){
     add_menu_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
@@ -87,8 +158,6 @@ function my_wpmvc_options_page_output(){
     </div>
     <?php
 }
-
-// Add setting options
 add_action('admin_init', 'my_wpmvc_settings');
 function my_wpmvc_settings(){
     register_setting( 'option_group', 'address', 'string' );
@@ -116,14 +185,11 @@ function fill_free_delivery_from_field(){
     printf( '<input type="number" min="0" step="10" name="free_delivery_from" value="%s" /> руб.', esc_attr( get_option('free_delivery_from', 0) ) );
 }
 
-
-
-// Add my-wpmvc plugin submenu settings
+// Add my-wpmvc plugin submenu settings (promo codes)
 
 add_filter( 'set_screen_option_' . 'promocodes_per_page', function( $status, $option, $value ){
     return (int) $value;
 }, 10, 3 );
-
 add_action('admin_menu', 'my_wpmvc_submenu');
 function my_wpmvc_submenu() {
     $hook = add_submenu_page( 'my_wpmvc', 'Промокоды', 'Промокоды',
@@ -131,14 +197,20 @@ function my_wpmvc_submenu() {
     add_action( "load-$hook", 'example_table_page_load' );
 }
 function example_table_page_load(){
+
+    if (!empty($_POST) && isset($_POST['add_new'])) {
+        PromocodesController::save();
+    }
+
     require_once __DIR__ . '/app/class-Promocodes_List_Table.php';
     $GLOBALS['Promocodes_List_Table'] = new Promocodes_List_Table();
 }
-
 function my_wpmvc_promocodes_page_output(){
     ?>
     <div class="wrap">
         <h2><?php echo get_admin_page_title() ?></h2>
+
+        <?php require_once 'assets/views/promocodes/create-form.php'; ?>
 
         <form action="" method="POST">
             <input type="hidden" name="page" value="my_wpmvc_promocodes" />

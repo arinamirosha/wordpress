@@ -27,10 +27,4 @@ jQuery('document').ready(function () {
     })
 
     jQuery("#phone_number").mask("8(999) 999-9999");
-
-    var sum = 0;
-    jQuery(".total-price").each(function() {
-        sum += Number(jQuery(this).text());
-    });
-    jQuery("#total").text(sum);
 })

@@ -78,6 +78,7 @@ class Promocodes_List_Table extends WP_List_Table {
             'title' => 'Название',
             'discount' => 'Скидка',
             'type_discount' => 'Тип скидки',
+            'number_of_uses' => 'Количество использований',
             'date' => 'Дата публикации',
         );
     }
@@ -96,14 +97,14 @@ class Promocodes_List_Table extends WP_List_Table {
         );
     }
 
-    // Элементы управления таблицей. Расположены между групповыми действиями и панагией.
-//    function extra_tablenav( $which ){
-//        echo '<div class="alignleft actions">HTML код полей формы (select). Внутри тега form...</div>';
+//     Элементы управления таблицей. Расположены между групповыми действиями и панагией.
+//    function extra_tablenav( $which ) {
+//        echo '<div class="alignleft actions">Hello world</div>';
 //    }
 
     // вывод каждой ячейки таблицы -------------
 
-    static function _list_table_css(){
+    static function _list_table_css() {
         ?>
         <style>
             table.promocodes .column-cb{ width:1%; }
@@ -111,18 +112,21 @@ class Promocodes_List_Table extends WP_List_Table {
             table.promocodes .column-title{ width:10%; }
             table.promocodes .column-discount{ width:10%; }
             table.promocodes .column-type_discount{ width:10%; }
+            table.promocodes .column-number_of_uses{ width:10%; }
             table.promocodes .column-date{ width:10%; }
         </style>
         <?php
     }
 
     // вывод каждой ячейки таблицы...
-    function column_default( $item, $colname ){
+    function column_default( $item, $colname ) {
         switch ($colname) {
             case 'title':
                 $actions = array();
+
 //                $actions['edit'] = sprintf( '<a href="%s">%s</a>', '#',  'Изменить');
 //                $actions['edit'] = sprintf('<a href="?page=%s&action=%s&promocode=%s">Изменить</a>',$_REQUEST['page'], 'edit', $item->ID);
+
                 $actions['delete'] = sprintf( '<a href="%s">%s</a>', get_delete_post_link( $item->ID, '', true  ), 'Удалить' );
 
                 $title = $item->title ? $item->title : 'Untitled';
@@ -142,7 +146,7 @@ class Promocodes_List_Table extends WP_List_Table {
     }
 
     // заполнение колонки cb
-    function column_cb( $item ){
+    function column_cb( $item ) {
         echo '<input type="checkbox" name="promids[]" id="cb-select-'. $item->ID .'" value="'. $item->ID .'" />';
     }
 
@@ -157,7 +161,6 @@ class Promocodes_List_Table extends WP_List_Table {
             wp_die('nonce error');
 
         // делает что-то...
-
         if ( $action == 'delete') {
             PromocodesController::delete();
         }

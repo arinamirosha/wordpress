@@ -51,7 +51,13 @@
     <div class="row h5">
         <div class="col-sm-5"></div>
         <div class="col-sm-2">Итого</div>
-        <div class="col-sm-5"><span id="total"></span> руб. </div>
+        <div class="col-sm-5"><?php echo $total ?> руб.</div>
+    </div>
+
+    <hr />
+
+    <div class="row text-center">
+        Здесь применить промокод
     </div>
 
     <hr />
@@ -156,6 +162,12 @@
 
             <?php endif; ?>
 
+        </div>
+
+        <hr />
+
+        <div class="row text-center">
+            К оплате: итого (промокод/без) + доставка, если есть
         </div>
 
         <hr />

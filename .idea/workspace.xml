@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="check form request data">
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/PromocodesController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Promocode.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/class-Promocodes_List_Table.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/admin/metaboxes/promocode/meta.php" afterDir="false" />
+    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="adding promo codes">
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/promocodes/create-form.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/PromocodesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/PromocodesController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Promocode.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Promocode.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/class-Promocodes_List_Table.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/class-Promocodes_List_Table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/raw/js/my-js.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +115,8 @@
       <workItem from="1611298945992" duration="29641000" />
       <workItem from="1611560674187" duration="28003000" />
       <workItem from="1611594153045" duration="70000" />
-      <workItem from="1611645428735" duration="31469000" />
+      <workItem from="1611645428735" duration="31597000" />
+      <workItem from="1611730888838" duration="18102000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -220,7 +223,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611652741531</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="show promo codes list table in settings page">
+      <created>1611679854324</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1611679854324</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -248,6 +258,8 @@
     <MESSAGE value="my-wpmvc plugin settings in menu" />
     <MESSAGE value="check form request data" />
     <MESSAGE value="correct relationship, count total price, sanitize order request outside controller" />
-    <option name="LAST_COMMIT_MESSAGE" value="correct relationship, count total price, sanitize order request outside controller" />
+    <MESSAGE value="show promo codes list table in settings page" />
+    <MESSAGE value="adding promo codes" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding promo codes" />
   </component>
 </project>
