@@ -103,8 +103,7 @@ jQuery('document').ready(function () {
                         count_to_pay();
 
                         let pId = '<input type="hidden" name="promocode_id"  value="' + promocode.ID + '">';
-                        let pTitle = '<input type="hidden" name="promocode_title" value="' + promocode.title + '">';
-                        jQuery('#promocode-applied').html(pId + pTitle);
+                        jQuery('#promocode-applied').html(pId);
                     }
                 }
             },
