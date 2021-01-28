@@ -58,7 +58,7 @@ class OrderController extends Controller
                 $promocode = Promocode::find( $promocode_id );
 
                 $newTotal = $promocode->type_discount == Promocode::PERCENT ?
-                    round($total * ( 1 - $promocode->discount / 100 ) ) :
+                    $total * ( 1 - $promocode->discount / 100 ) :
                     $total - $promocode->discount;
 
                 if ( $newTotal > 0 ) {
@@ -82,7 +82,7 @@ class OrderController extends Controller
             $order = new Order();
             $order->title             = Carbon::now()->format('dmYHis') . get_current_user_id();
             $order->shopcart_ids      = $ids;
-            $order->to_pay            = $total;
+            $order->to_pay            = round($total);
             $order->first_name        = $request_data['first_name'];
             $order->last_name         = $request_data['last_name'];
             $order->patronymic        = $request_data['patronymic'];
