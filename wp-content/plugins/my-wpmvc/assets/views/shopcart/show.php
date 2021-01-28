@@ -48,16 +48,25 @@
 
     <hr />
 
-    <div class="row h5">
-        <div class="col-sm-5"></div>
-        <div class="col-sm-2">Итого</div>
-        <div class="col-sm-5"><?php echo $total ?> руб.</div>
-    </div>
+    <form action="<?php echo admin_url("admin-ajax.php") ?>" method="post" id="promocode-form">
+        <div class="row">
+            <div class="col-sm-2"><label for="promocode">Промокод</label></div>
+            <div class="col-sm-10">
+                <input type="text" name="promocode" id="promocode">
+                <input type="hidden" name="action" value="check_promocode">
+                <button type="submit" id="submit-promocode">Применить</button>
+
+                <span id="message"></span>
+            </div>
+        </div>
+    </form>
 
     <hr />
 
-    <div class="row text-center">
-        Здесь применить промокод
+    <div class="row h5">
+        <div class="col-sm-5"></div>
+        <div class="col-sm-2">Итого</div>
+        <div class="col-sm-5"><span id="total"><?php echo $total ?></span> руб.</div>
     </div>
 
     <hr />
@@ -147,6 +156,8 @@
             $free_delivery_from = esc_attr( get_option('free_delivery_from', 0) );
             $delivery_price = esc_attr( get_option('delivery_price', 0) );
             ?>
+            <span class="display-none" id="delivery-price"><?php echo $delivery_price ?></span>
+            <span class="display-none" id="free-from"><?php echo $free_delivery_from ?></span>
 
             <?php if ( $delivery_price && ( (! $free_delivery_from) || ( $free_delivery_from && $total < $free_delivery_from )) ) : ?>
 
@@ -158,7 +169,7 @@
 
             <?php else : ?>
 
-                <div class="col-sm-6">Бесплатно</div>
+                <div class="col-sm-6" id="free">Бесплатно</div>
 
             <?php endif; ?>
 
@@ -166,14 +177,17 @@
 
         <hr />
 
-        <div class="row text-center">
-            К оплате: итого (промокод/без) + доставка, если есть
+        <div class="row h5">
+            <div class="col-sm-5"></div>
+            <div class="col-sm-2">К оплате</div>
+            <div class="col-sm-5"><span id="to-pay"></span> руб.</div>
         </div>
 
         <hr />
 
         <div class="row text-center">
             <input type="checkbox" class="hidden" name="checkout" checked>
+            <span id="promocode-applied"></span>
             <div class="col-sm-12"><button type="submit">Оформить заказ</button></div>
         </div>
     </form>

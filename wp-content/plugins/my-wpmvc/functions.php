@@ -226,3 +226,9 @@ function my_wpmvc_promocodes_page_output(){
 }
 
 
+// AJAX
+
+add_action( 'wp_ajax_check_promocode', 'check_promocode_function' ); // wp_ajax_{ЗНАЧЕНИЕ ПАРАМЕТРА ACTION!!} для авторизованных
+function check_promocode_function(){
+    PromocodesController::check_promocode();
+}
