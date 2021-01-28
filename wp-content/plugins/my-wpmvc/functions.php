@@ -5,7 +5,7 @@ use MyWpmvc\Models\Promocode;
 use MyWpmvc\Models\ShopCart;
 
 /**
- * Get publish shopcart item ('in cart') for current user
+ * Get publish shopcart item ('in cart') for current user by id
  * @param $shopcart_id
  *
  * @return false|object|\WPMVC\MVC\Traits\FindTrait
@@ -20,6 +20,34 @@ function get_shopcart_item( $shopcart_id ) {
     }
     return false;
 }
+
+/**
+ * Get publish shopcart items ('in cart') for current user
+ * @return array
+ * @throws Exception
+ */
+function get_shopcart_items() {
+    $builder = wp_query_builder();
+    $shopcarts = $builder->select( '*' )
+                         ->from( 'posts as a' )
+                         ->join(
+                             'postmeta as b',
+                             [ [ 'key_a' => 'a.ID', 'key_b' => 'b.post_id' ] ],
+                             true
+                         )
+                         ->where( [
+                             'post_status' => 'publish',
+                             'post_type'   => 'shopcart',
+                             'post_author' => get_current_user_id(),
+                             'meta_key'    => 'order_status',
+                             'meta_value'  => ShopCart::IN_CART,
+                         ] )
+                         ->get( ARRAY_A, function ( $row ) {
+                             return new ShopCart( $row );
+                         } );
+    return $shopcarts;
+}
+
 
 /**
  * Check string's length and requirement, return error message or false
