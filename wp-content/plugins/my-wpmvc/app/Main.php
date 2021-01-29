@@ -38,6 +38,8 @@ class Main extends Bridge
         $this->add_filter( 'manage_shopcart_posts_columns', 'ShopCartController@custom_filter_add_status_column' );
         $this->add_action( 'manage_shopcart_posts_custom_column', 'ShopCartController@custom_action_fill_status_column' );
 
+        $this->add_filter( 'request', 'OrderController@custom_filter_for_shopcart_order' );
+        $this->add_action( 'restrict_manage_posts', 'OrderController@custom_action_for_shopcart_order_html' );
         $this->add_filter( 'manage_shopcart_order_posts_columns', 'OrderController@custom_filter_add_columns' );
         $this->add_action( 'manage_shopcart_order_posts_custom_column', 'OrderController@custom_action_fill_columns' );
     }

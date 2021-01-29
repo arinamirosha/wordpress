@@ -114,6 +114,105 @@ class OrderController extends Controller
     /**
      * @since 1.0.0
      *
+     * @hook request
+     *
+     * @return
+     */
+    public function custom_filter_for_shopcart_order( $vars )
+    {
+        global $pagenow;
+        global $post_type;
+        $start_in_post_types = array( 'shopcart_order' );
+        if ( !empty( $pagenow )
+             && $pagenow == 'edit.php'
+             && in_array( $post_type, $start_in_post_types )
+        ) {
+            if ( !empty( $_GET['meta_filter'] ) ) {
+                switch ( intval( $_GET['meta_filter'] ) ) {
+                    case 1:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::PROCESS,
+                            "compare" => "=",
+                        ) );
+                        break;
+                    case 2:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::DELIVER,
+                            "compare" => "=",
+                        ) );
+                        break;
+                    case 3:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::READY,
+                            "compare" => "=",
+                        ) );
+                        break;
+                    case 4:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::FINISHED,
+                            "compare" => "=",
+                        ) );
+                        break;
+                }
+            }
+        }
+        return $vars;
+    }
+    /**
+     * @since 1.0.0
+     *
+     * @hook restrict_manage_posts
+     *
+     * @return
+     */
+    public function custom_action_for_shopcart_order_html()
+    {
+        global $pagenow;
+        global $post_type;
+        $start_in_post_types = array( 'shopcart_order' );
+        if ( !empty( $pagenow )
+             && $pagenow == 'edit.php'
+             && in_array( $post_type, $start_in_post_types )
+        ) {
+            ?>
+            <label for="filter-by-field" class="screen-reader-text">Мой фильтр</label>
+            <select name="meta_filter" id="filter-by-field">
+                <option<?php
+                if ( !isset( $_GET['meta_filter'] ) || $_GET['meta_filter'] == 0 ) {
+                    echo " selected";
+                }
+                ?> value="0">Не применять фильтр</option>
+                <option<?php
+                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 1 ) {
+                    echo " selected";
+                }
+                ?> value="1">Формируется</option>
+                <option<?php
+                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 2 ) {
+                    echo " selected";
+                }
+                ?> value="2">Доставляется</option>
+                <option<?php
+                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 3 ) {
+                    echo " selected";
+                }
+                ?> value="3">Готов к выдаче</option>
+                <option<?php
+                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 4 ) {
+                    echo " selected";
+                }
+                ?> value="4">Завершен</option>
+            </select>
+            <?php
+        }
+    }
+    /**
+     * @since 1.0.0
+     *
      * @hook manage_shopcart_order_posts_columns
      *
      * @return
@@ -162,4 +261,5 @@ class OrderController extends Controller
             }
         }
     }
+
 }
