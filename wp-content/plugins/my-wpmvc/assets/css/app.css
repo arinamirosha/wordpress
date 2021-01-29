@@ -28,10 +28,18 @@
     text-align: center;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .display-none {
     display: none;
 }
 
 .danger {
-    color: red;
+    color: #db381e;
+}
+
+.success {
+    color: #279d27;
 }

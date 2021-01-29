@@ -25,7 +25,7 @@ get_header(); ?>
                         "SELECT sum(meta_value) FROM $wpdb->posts wp_p LEFT JOIN $wpdb->postmeta wp_pm ON wp_p.id = wp_pm.post_id "
                         . "WHERE post_type = 'products' AND post_status = 'publish' AND meta_key='price'"
                     ));
-                    echo '<p class="h3">Общая стоимость товаров: '. $x . ' руб.</p>';
+                    echo '<p class="h3">Общая стоимость товаров: '. round($x) . ' руб.</p>';
                 }
 
                 ?>

@@ -14,8 +14,8 @@ use WPMVC\MVC\Models\PostModel as Model;
  */
 class ShopCart extends Model
 {
-    CONST IN_CART = 1;
-    CONST ORDERED = 2;
+    CONST IN_CART  = 1;
+    CONST ORDERED  = 2;
     CONST FINISHED = 3;
 
     use FindTrait;

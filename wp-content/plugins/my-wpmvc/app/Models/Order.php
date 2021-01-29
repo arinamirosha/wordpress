@@ -16,7 +16,13 @@ class Order extends Model
 {
     use FindTrait;
 
-    const PICKUP = 'Самовывоз';
+    const PICKUP   = 1; // Самовывоз
+    const DELIVERY = 2; // Доставка
+
+    const PROCESS  = 3; // Формируется
+    const DELIVER  = 4; // Доставляется
+    const READY    = 5; // Готов к выдаче
+    const FINISHED = 6; // Завершен
 
     /**
      * Property type.
@@ -24,7 +30,8 @@ class Order extends Model
      *
      * @var string
      */
-    protected $type = 'order';
+    protected $type = 'shopcart_order';
+
     /**
      * Property aliases.
      * @since 1.0.0
@@ -32,29 +39,27 @@ class Order extends Model
      * @var array
      */
     protected $aliases = [
-        'title'             => 'post_title',
-        'p_status'          => 'post_status',
-        'shopcart_ids'      => 'meta_shopcart_ids',
-        'to_pay'            => 'meta_to_pay',
-        'first_name'        => 'meta_first_name',
-        'last_name'         => 'meta_last_name',
-        'patronymic'        => 'meta_patronymic',
-        'phone'             => 'meta_phone',
-        'address_or_pickup' => 'meta_address_or_pickup',
-        'buyer_full_name'   => 'func_get_buyer_full_name',
+        'title'              => 'post_title',
+        'p_status'           => 'post_status',
+        'shopcart_ids'       => 'meta_shopcart_ids',
+        'to_pay'             => 'meta_to_pay',
+        'first_name'         => 'meta_first_name',
+        'last_name'          => 'meta_last_name',
+        'patronymic'         => 'meta_patronymic',
+        'phone'              => 'meta_phone',
+        'promocode_discount' => 'meta_promocode_discount',
+        'delivery_or_pickup' => 'meta_delivery_or_pickup',
+        'address'            => 'meta_address',
+        'delivery_price'     => 'meta_delivery_price',
+        'order_status'       => 'meta_order_status',
+        'buyer_full_name'    => 'func_get_buyer_full_name',
     ];
-    /**
-     * Returns buyer's full name
-     * @return string
-     */
+
     public function get_buyer_full_name()
     {
         return $this->meta['first_name'] . ' ' . $this->meta['last_name'] . ' ' . $this->meta['patronymic'];
     }
-    /**
-     * Returns "has_many" relationship.
-     * @return object|Relationship
-     */
+
     protected function shopcarts()
     {
         return $this->has_many( ShopCart::class, 'shopcart_ids' );
@@ -73,8 +78,8 @@ class Order extends Model
      * @var array
      */
     protected $registry_metabox = array(
-        'title' => 'Meta fields',
-        'context' => 'normal',
+        'title'    => 'Meta fields',
+        'context'  => 'normal',
         'priority' => 'default',
     );
 }
