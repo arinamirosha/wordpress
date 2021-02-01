@@ -10,5 +10,9 @@
 
 use MyWpmvc\Controllers\OrderController;
 
+if ( isset( $_POST ) && ! empty( $_POST ) && isset($_POST['delete'])) {
+    OrderController::delete();
+}
+
 OrderController::index();
 ?>

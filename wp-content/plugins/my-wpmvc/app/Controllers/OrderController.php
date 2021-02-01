@@ -36,17 +36,29 @@ class OrderController extends Controller
     {
         $request_data = Request::all( 'sanitize_text_field' );
         $form_errors = sanitize_order_request( $request_data );
-        if ( !empty( $form_errors ) ) {
+        if ( ! empty( $form_errors ) ) {
             $GLOBALS['form_errors'] = $form_errors;
         } else {
             $shopcarts = get_shopcart_items();
+
+            foreach ( $shopcarts as $shopcart ) {
+                if ( get_post_status( $shopcart->product->ID ) != 'publish' ) {
+                    $shopcart->delete();
+                    $is_not_publish = true;
+                }
+            }
+            if ($is_not_publish) {
+                $GLOBALS['message'] = 'Некоторые товары в корзине были удалены до оформления заказа';
+                return;
+            }
+
             $total = 0;
             $ids = [];
             $qty = 0;
             foreach ( $shopcarts as $shopcart ) {
                 $shopcart->order_status = ShopCart::ORDERED;
                 $shopcart->save();
-                array_push( $ids, $shopcart->ID );
+                array_push($ids, $shopcart->ID);
                 $total += $shopcart->total_price;
                 $qty += $shopcart->quantity;
             }
@@ -141,6 +153,19 @@ class OrderController extends Controller
             }
         }
     }
+    /**
+     * Delete order
+     */
+    public function delete()
+    {
+        $order = Order::find( Request::input( 'post', 0, true, 'intval' ) );
+        if ( $order ) {
+            foreach ( $order->shopcarts as $shopcart ) {
+                $shopcart->delete();
+            }
+            $order->delete();
+        }
+    }
 
     // FILTERS AND ACTIONS
 
@@ -197,6 +222,13 @@ class OrderController extends Controller
                             "compare" => "=",
                         ) );
                         break;
+                    case 6:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::FINISHED,
+                            "compare" => "!=",
+                        ) );
+                        break;
                 }
             }
         }
@@ -221,36 +253,22 @@ class OrderController extends Controller
             ?>
             <label for="filter-by-field" class="screen-reader-text">Мой фильтр</label>
             <select name="meta_filter" id="filter-by-field">
-                <option<?php
-                if ( !isset( $_GET['meta_filter'] ) || $_GET['meta_filter'] == 0 ) {
-                    echo " selected";
-                }
-                ?> value="0">Не применять фильтр</option>
-                <option<?php
-                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 1 ) {
-                    echo " selected";
-                }
-                ?> value="1">Ожидание</option>
-                <option<?php
-                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 2 ) {
-                    echo " selected";
-                }
-                ?> value="2">Формируется</option>
-                <option<?php
-                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 3 ) {
-                    echo " selected";
-                }
-                ?> value="3">Доставляется</option>
-                <option<?php
-                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 4 ) {
-                    echo " selected";
-                }
-                ?> value="4">Готов к выдаче</option>
-                <option<?php
-                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 5 ) {
-                    echo " selected";
-                }
-                ?> value="5">Завершен</option>
+                <?php $options = array(
+                    'Не применять фильтр',
+                    'Ожидание',
+                    'Формируется',
+                    'Доставляется',
+                    'Готов к выдаче',
+                    'Завершен',
+                    'Не завершен',
+                );?>
+                <?php foreach ($options as $key => $val) : ?>
+                    <option<?php
+                    if ( !isset( $_GET['meta_filter'] ) || $_GET['meta_filter'] == $key ) {
+                        echo " selected";
+                    }
+                    ?> value="<?php echo $key; ?>"><?php echo $val; ?></option>
+                <?php endforeach; ?>
             </select>
             <?php
         }

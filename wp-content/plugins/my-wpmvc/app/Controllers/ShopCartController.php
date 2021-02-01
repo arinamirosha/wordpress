@@ -33,6 +33,9 @@ class ShopCartController extends Controller
 
         $product_id = get_the_ID();
         $product = Product::find( $product_id );
+        if ( ! $product || get_post_status( $product_id ) != 'publish' ) {
+            return;
+        }
         $user_id = get_current_user_id();
 
         $builder = wp_query_builder();

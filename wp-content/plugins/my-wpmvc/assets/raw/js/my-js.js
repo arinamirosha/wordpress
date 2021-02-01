@@ -18,6 +18,10 @@ function submit_qty_form($id) {
 }
 
 jQuery('document').ready(function () {
+    jQuery('#cancel-button').on('click', function () {
+        return confirm('Вы уверены, что хотите отменить? Заказ будет удален.');
+    })
+
     let pickup = jQuery('#pickup');
     if (pickup.attr('checked')) {
         jQuery('.delivery').hide();

@@ -34,6 +34,13 @@ use MyWpmvc\Models\Order;
                     }
                     ?>
                 </span>
+                <?php if ( $order->order_status == Order::WAIT ) : ?>
+                    <form action="" method="post" id="cancel-order-form">
+                        <input type="hidden" name="post" value="<?php echo $order->ID ?>">
+                        <input type="hidden" name="delete">
+                        <button class="button del-button--no-style" type="submit" id="cancel-button"><i class="fa fa-trash"></i></button>
+                    </form>
+                <?php endif; ?>
             </div>
         </div>
 

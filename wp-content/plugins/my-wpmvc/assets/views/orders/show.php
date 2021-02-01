@@ -1,10 +1,24 @@
+<style>
+    #cancel-order-form {
+        display: inline;
+        float: right;
+    }
+</style>
+<script>
+    jQuery('document').ready(function () {
+        jQuery('#cancel-button').on('click', function () {
+            return confirm('Вы уверены, что хотите отменить? Заказ будет удален.');
+        })
+    })
+</script>
+
 <div class="wrap">
 
     <?php use MyWpmvc\Models\Order;
 
     if ($order) : ?>
 
-        <h1>№<?php echo $order->title; ?> &mdash;
+        <h1>№ <?php echo $order->title; ?> &mdash;
             <?php switch ($order->meta_order_status) {
                 case Order::WAIT:     echo 'Ожидание'; break;
                 case Order::PROCESS:  echo 'Формируется'; break;
@@ -12,7 +26,14 @@
                 case Order::READY:    echo 'Готов к выдаче'; break;
                 case Order::FINISHED: echo 'Завершен'; break;
             } ?>
+
+            <form action="" method="post" id="cancel-order-form">
+                <input type="hidden" name="post" value="<?php echo $order->ID ?>">
+                <input type="hidden" name="delete">
+                <button class="button" type="submit" id="cancel-button">Отменить</button>
+            </form>
         </h1>
+
 
         <table class="widefat striped">
 
@@ -67,18 +88,10 @@
         <h1>К ОПЛАТЕ: <?php echo $order->to_pay ?> руб.</h1>
         <hr />
 
-        <?php
-        // Кнопки:
-        // 1. Начать формировать
-        // 2. Готов к выдаче / Начать доставку
-        // 3. Завершить
-
-        // 4. Отменить (позже) - удалить с подтверждением. Пока ожидание - пользователь также может отменить (в index)
-        ?>
-
         <?php if ( $order->order_status != Order::FINISHED ) : ?>
             <form action="" method="post">
                 <input type="hidden" name="post" value="<?php echo $order->ID ?>">
+                <input type="hidden" name="update">
 
                 <?php switch ($order->order_status ) {
                     case Order::WAIT:
@@ -114,7 +127,7 @@
 
     <?php else : ?>
 
-        <h1>Такого заказа нет</h1>
+        <h1>Такого заказа нет | Удален</h1>
 
     <?php endif; ?>
 

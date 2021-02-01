@@ -281,7 +281,11 @@ function add_my_wpmvc_page_post_show(){
 }
 function order_show_output(){
     if ( isset($_POST) && !empty($_POST) ) {
-        OrderController::update();
+        if ( isset( $_POST['update'] ) ) {
+            OrderController::update();
+        } elseif ( isset( $_POST['delete'] ) ) {
+            OrderController::delete();
+        }
     }
     OrderController::show();
 }

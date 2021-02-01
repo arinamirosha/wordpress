@@ -43,3 +43,8 @@
 .success {
     color: #279d27;
 }
+
+#cancel-order-form {
+    display: inline;
+    float: right;
+}

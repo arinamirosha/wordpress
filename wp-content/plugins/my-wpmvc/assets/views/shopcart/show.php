@@ -11,6 +11,8 @@
 
 <?php if ($shopcarts) : ?>
 
+    <?php if ($GLOBALS['message']) echo $GLOBALS['message'] . '<hr />'; ?>
+
     <div class="row h5">
         <div class="col-sm-3">Наименование</div>
         <div class="col-sm-2">Количество</div>
