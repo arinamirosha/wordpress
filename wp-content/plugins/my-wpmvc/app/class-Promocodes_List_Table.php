@@ -123,7 +123,8 @@ class Promocodes_List_Table extends WP_List_Table {
 		switch ( $colname ) {
 			case 'title':
 				$actions           = array();
-				$actions['delete'] = sprintf( '<a href="%s">%s</a>', get_delete_post_link( $item->ID, '', true ), 'Удалить' );
+				// ссылка перестала работать, не удаляет и редирект на консоль
+				$actions['delete'] = '<a href="' . get_delete_post_link( $item->ID, '', true) . '">Удалить</a>';
 				$title             = $item->title ? $item->title : 'Untitled';
 
 				return $title . $this->row_actions( $actions );
