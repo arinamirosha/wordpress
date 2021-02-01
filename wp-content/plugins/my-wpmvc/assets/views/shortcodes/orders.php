@@ -10,5 +10,5 @@
 
 use MyWpmvc\Controllers\OrderController;
 
-OrderController::show();
+OrderController::index();
 ?>

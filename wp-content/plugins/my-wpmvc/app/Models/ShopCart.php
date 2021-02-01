@@ -44,7 +44,7 @@ class ShopCart extends Model
 
     protected function total_price()
     {
-        return $this->product->price * $this->quantity;
+        return round($this->product->price * $this->quantity);
     }
 
     protected function product()

@@ -19,10 +19,11 @@ class Order extends Model
     const PICKUP   = 1; // Самовывоз
     const DELIVERY = 2; // Доставка
 
-    const PROCESS  = 3; // Формируется
-    const DELIVER  = 4; // Доставляется
-    const READY    = 5; // Готов к выдаче
-    const FINISHED = 6; // Завершен
+    const WAIT     = 3; // Ожидание
+    const PROCESS  = 4; // Формируется
+    const DELIVER  = 5; // Доставляется
+    const READY    = 6; // Готов к выдаче
+    const FINISHED = 7; // Завершен
 
     /**
      * Property type.

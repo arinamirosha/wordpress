@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="adding promo codes">
+    <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="adding columns to orders in admin panel + filter order_status column">
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Order.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/Order.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/ShopCart.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Models/ShopCart.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/show.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/orders.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shortcodes/orders.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/themes/unitechildtheme/content-single-products.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/themes/unitechildtheme/content-single-products.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +48,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -52,11 +58,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\app\Controllers" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\assets\views\orders" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\assets\views\shopcart" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unitechildtheme" />
       <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unitechildtheme\languages" />
-      <recent name="C:\OpenServer\domains\wordpress\wp-content\themes\unite\languages" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\OpenServer\domains\wordpress\wp-content\plugins\my-wpmvc\app" />
@@ -112,7 +118,8 @@
       <workItem from="1611730888838" duration="20614000" />
       <workItem from="1611763557499" duration="5182000" />
       <workItem from="1611819619258" duration="26217000" />
-      <workItem from="1611904490801" duration="19396000" />
+      <workItem from="1611904490801" duration="21507000" />
+      <workItem from="1612163058979" duration="15822000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -268,7 +275,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611930254788</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="adding columns to orders in admin panel + filter order_status column">
+      <created>1611932192078</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1611932192078</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -303,6 +317,7 @@
     <MESSAGE value="save new order" />
     <MESSAGE value="admin columns and round total" />
     <MESSAGE value="orders shortcode" />
-    <option name="LAST_COMMIT_MESSAGE" value="orders shortcode" />
+    <MESSAGE value="adding columns to orders in admin panel + filter order_status column" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding columns to orders in admin panel + filter order_status column" />
   </component>
 </project>

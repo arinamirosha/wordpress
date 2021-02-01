@@ -9,6 +9,8 @@ use MyWpmvc\Models\ShopCart;
 use WPMVC\MVC\Controllers\ModelController as Controller;
 use WPMVC\Request;
 use WPMVC\Response;
+use function Automattic\Jetpack\Extensions\Eventbrite\get_current_url;
+
 /**
  * OrderController
  * WordPress MVC automated model controller.
@@ -88,7 +90,7 @@ class OrderController extends Controller
             $order->delivery_or_pickup = $delivery_or_pickup;
             $order->address = $address ? $address : '';
             $order->delivery_price = $delivery_p ? $delivery_p : 0;
-            $order->order_status = Order::PROCESS;
+            $order->order_status = Order::WAIT;
             $order->p_status = 'publish';
             $order->save();
         }
@@ -96,17 +98,48 @@ class OrderController extends Controller
     /**
      * Show user's orders
      */
-    public function show()
+    public function index()
     {
         $builder = wp_query_builder();
-        $orders = $builder->select( '*' )->from( 'posts' )->where( [
-            'post_status' => 'publish',
-            'post_type' => 'shopcart_order',
-            'post_author' => get_current_user_id(),
-        ] )->order_by( 'post_date', 'desc' )->get( ARRAY_A, function ( $row ) {
-            return new Order( $row );
-        } );
-        require_once 'wp-content/plugins/my-wpmvc/assets/views/orders/show.php';
+        $orders = $builder->select( '*' )
+                          ->from( 'posts' )
+                          ->where( [
+                              'post_status' => 'publish',
+                              'post_type' => 'shopcart_order',
+                              'post_author' => get_current_user_id(),
+                          ] )->order_by( 'post_date', 'desc' )
+                          ->get( ARRAY_A, function ( $row ) {
+                              return new Order( $row );
+                          } );
+        require_once 'wp-content/plugins/my-wpmvc/assets/views/orders/index.php';
+    }
+    /**
+     * Show order
+     */
+    public function show()
+    {
+        $order = Order::find( Request::input( 'post' ) );
+        require_once ABSPATH . 'wp-content/plugins/my-wpmvc/assets/views/orders/show.php';
+    }
+    /**
+     * Update order status
+     */
+    public function update()
+    {
+        $order      = Order::find( Request::input( 'post', 0, true, 'intval' ) );
+        $new_status = Request::input( 'order_status', 0, true, 'intval' );
+        $statuses   = [ Order::PROCESS, Order::DELIVER, Order::READY, Order::FINISHED ];
+
+        if ( $order && in_array( $new_status, $statuses ) ) {
+            $order->order_status = $new_status;
+            $order->save();
+            if ( $new_status == Order::FINISHED) {
+                foreach ($order->shopcarts as $shopcart) {
+                    $shopcart->order_status = ShopCart::FINISHED;
+                    $shopcart->save();
+                }
+            }
+        }
     }
 
     // FILTERS AND ACTIONS
@@ -132,25 +165,32 @@ class OrderController extends Controller
                     case 1:
                         $vars['meta_query'] = array( "relation" => "AND", array(
                             "key" => "order_status",
-                            "value" => Order::PROCESS,
+                            "value" => Order::WAIT,
                             "compare" => "=",
                         ) );
                         break;
                     case 2:
                         $vars['meta_query'] = array( "relation" => "AND", array(
                             "key" => "order_status",
-                            "value" => Order::DELIVER,
+                            "value" => Order::PROCESS,
                             "compare" => "=",
                         ) );
                         break;
                     case 3:
                         $vars['meta_query'] = array( "relation" => "AND", array(
                             "key" => "order_status",
-                            "value" => Order::READY,
+                            "value" => Order::DELIVER,
                             "compare" => "=",
                         ) );
                         break;
                     case 4:
+                        $vars['meta_query'] = array( "relation" => "AND", array(
+                            "key" => "order_status",
+                            "value" => Order::READY,
+                            "compare" => "=",
+                        ) );
+                        break;
+                    case 5:
                         $vars['meta_query'] = array( "relation" => "AND", array(
                             "key" => "order_status",
                             "value" => Order::FINISHED,
@@ -190,22 +230,27 @@ class OrderController extends Controller
                 if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 1 ) {
                     echo " selected";
                 }
-                ?> value="1">Формируется</option>
+                ?> value="1">Ожидание</option>
                 <option<?php
                 if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 2 ) {
                     echo " selected";
                 }
-                ?> value="2">Доставляется</option>
+                ?> value="2">Формируется</option>
                 <option<?php
                 if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 3 ) {
                     echo " selected";
                 }
-                ?> value="3">Готов к выдаче</option>
+                ?> value="3">Доставляется</option>
                 <option<?php
                 if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 4 ) {
                     echo " selected";
                 }
-                ?> value="4">Завершен</option>
+                ?> value="4">Готов к выдаче</option>
+                <option<?php
+                if ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == 5 ) {
+                    echo " selected";
+                }
+                ?> value="5">Завершен</option>
             </select>
             <?php
         }
@@ -246,6 +291,9 @@ class OrderController extends Controller
         }
         if ( $column_name === 'order_status' ) {
             switch ( get_post_meta( get_the_ID(), 'order_status', true ) ) {
+                case Order::WAIT:
+                    echo 'Ожидание';
+                    break;
                 case Order::PROCESS:
                     echo 'Формируется';
                     break;
@@ -261,5 +309,6 @@ class OrderController extends Controller
             }
         }
     }
+
 
 }
