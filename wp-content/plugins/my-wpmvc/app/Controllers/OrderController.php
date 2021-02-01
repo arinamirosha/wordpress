@@ -123,7 +123,7 @@ class OrderController extends Controller
                           ->get( ARRAY_A, function ( $row ) {
                               return new Order( $row );
                           } );
-        require_once 'wp-content/plugins/my-wpmvc/assets/views/orders/index.php';
+        require_once ABSPATH . 'wp-content/plugins/my-wpmvc/assets/views/orders/index.php';
     }
     /**
      * Show order

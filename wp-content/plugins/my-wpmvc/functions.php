@@ -49,7 +49,6 @@ function get_shopcart_items() {
     return $shopcarts;
 }
 
-
 /**
  * Check string's length and requirement, return error message or false
  * @param $str
@@ -231,7 +230,7 @@ function example_table_page_load(){
         PromocodesController::save();
     }
 
-    require_once __DIR__ . '/app/class-Promocodes_List_Table.php';
+    require_once ABSPATH . 'wp-content/plugins/my-wpmvc/app/class-Promocodes_List_Table.php';
     $GLOBALS['Promocodes_List_Table'] = new Promocodes_List_Table();
 }
 function my_wpmvc_promocodes_page_output(){
@@ -239,7 +238,7 @@ function my_wpmvc_promocodes_page_output(){
     <div class="wrap">
         <h2><?php echo get_admin_page_title() ?></h2>
 
-        <?php require_once 'assets/views/promocodes/create-form.php'; ?>
+        <?php require_once ABSPATH . 'wp-content/plugins/my-wpmvc/assets/views/promocodes/create-form.php'; ?>
 
         <form action="" method="POST">
             <input type="hidden" name="page" value="my_wpmvc_promocodes" />
@@ -263,7 +262,7 @@ function check_promocode_function(){
 }
 
 
-// Add admin page for showing order
+// Add admin page for showing order ('view' custom link from actions)
 
 add_filter( 'post_row_actions', 'filter_function_name_2859', 10, 2 );
 function filter_function_name_2859( $actions, $post ){

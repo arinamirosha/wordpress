@@ -77,15 +77,12 @@ class ShopCartController extends Controller
             $total += $shopcart->total_price;
         }
 
-        //Fatal error: Uncaught Error: Using $this when not in object context
-//        $this->view->show('view.shopcart.show', compact('shopcarts', 'total'));
-
-        require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
+        require_once ABSPATH . 'wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php';
     }
 
     public function show_add_to_cart_button()
     {
-        require_once 'wp-content/plugins/my-wpmvc/assets/views/shopcart/add-to-cart-button.php';
+        require_once ABSPATH . 'wp-content/plugins/my-wpmvc/assets/views/shopcart/add-to-cart-button.php';
     }
 
     public function remove_cart_item()
