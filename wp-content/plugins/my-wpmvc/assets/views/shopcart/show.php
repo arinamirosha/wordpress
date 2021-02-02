@@ -73,13 +73,17 @@
 
     <hr />
 
-    <?php $form_errors = $GLOBALS['form_errors']; ?>
+    <?php
+    $form_errors = $GLOBALS['form_errors'];
+	$first_name = get_user_meta( get_current_user_id(), 'first_name', true );
+	$last_name  = get_user_meta( get_current_user_id(), 'last_name', true );
+	?>
 
     <form action="" method="post">
         <div class="row">
             <div class="col-sm-2"><label for="first_name">Имя</label></div>
             <div class="col-sm-6">
-                <input type="text" name="first_name" id="first_name" value="<?php echo $_POST['first_name'] ?>">
+                <input type="text" name="first_name" id="first_name" value="<?php echo $_POST['first_name'] ? $_POST['first_name'] : $first_name ?>">
                 <?php if ( ! empty($form_errors) && $form_errors['first_name'] ) : ?>
                     <span class="danger">
                         <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
@@ -92,7 +96,7 @@
         <div class="row">
             <div class="col-sm-2"><label for="last_name">Фамилия</label></div>
             <div class="col-sm-6">
-                <input type="text" name="last_name" id="last_name" value="<?php echo $_POST['last_name'] ?>">
+                <input type="text" name="last_name" id="last_name" value="<?php echo $_POST['last_name'] ? $_POST['last_name'] : $last_name ?>">
                 <?php if ( ! empty($form_errors) && $form_errors['last_name'] ) : ?>
                     <span class="danger">
                         <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
