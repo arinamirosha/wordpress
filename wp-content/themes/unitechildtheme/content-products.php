@@ -22,7 +22,7 @@
 
             <?php if (get_post_meta( get_the_ID(), 'price', true )) : ?>
                 <div class="price">
-                    Цена: <?php echo get_post_meta( get_the_ID(), 'price', true ); ?> руб.
+                    Цена: <?php echo round( get_post_meta( get_the_ID(), 'price', true ) ); ?> руб.
                 </div>
             <?php endif; ?>
 
