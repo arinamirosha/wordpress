@@ -1,5 +1,6 @@
 <?php
 
+use MyWpmvc\Controllers\OptionsController;
 use MyWpmvc\Controllers\OrderController;
 use MyWpmvc\Controllers\PromocodesController;
 use MyWpmvc\Models\Promocode;
@@ -172,6 +173,9 @@ function add_my_wpmvc_page() {
 	add_menu_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
 }
 function my_wpmvc_options_page_output() {
+	if ( ! empty( $_POST ) && isset($_POST['city'])) {
+		OptionsController::save();
+	}
 	?>
     <div class="wrap">
         <h2><?php echo get_admin_page_title() ?></h2>
@@ -182,6 +186,33 @@ function my_wpmvc_options_page_output() {
 			submit_button();
 			?>
         </form>
+
+        <table class="form-table">
+            <tr>
+                <th>Города для доставки</th>
+                <td>
+				    <?php
+				    $cities_for_delivery = get_option( 'cities_for_delivery', [] );
+				    if ( ! empty( $cities_for_delivery ) ) {
+					    echo implode( ', ', $cities_for_delivery );
+				    } else {
+				        echo 'Пусто';
+				    }
+				    ?>
+                </td>
+            </tr>
+            <tr>
+                <th><label for="city">Город </label></th>
+                <td>
+                    <form action="" method="post">
+                        <input type="text" id="city" name="city">
+                        <button class="button" type="submit">Добавить</button>
+                    </form>
+				    <?php if ( isset($GLOBALS['message']) ) echo $GLOBALS['message']; ?>
+                </td>
+            </tr>
+        </table>
+
         <p>
             Шорткод <strong>[shop_cart_add_button]</strong> - кнопка добавления в корзину (на странице товара)<br/>
             Шорткод <strong>[shop_cart]</strong> - корзина (на отдельной странице)
@@ -262,15 +293,6 @@ function my_wpmvc_promocodes_page_output() {
 	<?php
 }
 
-
-// AJAX
-
-add_action( 'wp_ajax_check_promocode', 'check_promocode_function' ); // wp_ajax_{значение параметра action} для авторизованных
-function check_promocode_function() {
-	PromocodesController::check_promocode();
-}
-
-
 // No actions (shopcart) and 'view' custom link from actions (shopcart_order)
 
 add_filter( 'post_row_actions', 'filter_function_name_2859', 10, 2 );
@@ -281,7 +303,7 @@ function filter_function_name_2859( $actions, $post ) {
 		$actions['view'] = '<a href="' . get_admin_url() . '/admin.php?page=order_show&post=' . $post->ID . '" aria-label="Открыть заказ">Открыть</a>';
 	} elseif ( $post_type == 'shopcart' ) {
 		$actions = array();
-    }
+	}
 
 	return $actions;
 }
@@ -307,7 +329,6 @@ function remove_admin_menu() {
 	remove_menu_page( 'order_show' );
 }
 
-
 // Load styles and scripts to admin
 
 function my_stylesheet_and_scripts(){
@@ -315,3 +336,11 @@ function my_stylesheet_and_scripts(){
 	wp_enqueue_script("my-script-admin",plugins_url() . '/my-wpmvc/assets/js/app.js');
 }
 add_action('admin_head', 'my_stylesheet_and_scripts');
+
+
+// AJAX
+
+add_action( 'wp_ajax_check_promocode', 'check_promocode_function' ); // wp_ajax_{значение параметра action} для авторизованных
+function check_promocode_function() {
+	PromocodesController::check_promocode();
+}
