@@ -306,3 +306,12 @@ add_action( 'admin_menu', 'remove_admin_menu' );
 function remove_admin_menu() {
 	remove_menu_page( 'order_show' );
 }
+
+
+// Load styles and scripts to admin
+
+function my_stylesheet_and_scripts(){
+	wp_enqueue_style("my-style-admin",plugins_url() . '/my-wpmvc/assets/css/app.css');
+	wp_enqueue_script("my-script-admin",plugins_url() . '/my-wpmvc/assets/js/app.js');
+}
+add_action('admin_head', 'my_stylesheet_and_scripts');

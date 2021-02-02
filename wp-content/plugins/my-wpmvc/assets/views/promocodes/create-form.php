@@ -5,16 +5,6 @@ use MyWpmvc\Models\Promocode;
 $form_errors = $GLOBALS['form_errors'];
 ?>
 
-<style>
-    .float-left { float: left; }
-    .danger { color: red; }
-    .text-center { text-align: center; }
-    .m-r-10 { margin-right: 10px; }
-    .m-b-5 { margin-bottom: 5px; }
-    .m-t-5 { margin-top: 5px; }
-    .m-t-10 { margin-top: 10px; }
-</style>
-
 <form action="" method="post" class="alignleft m-b-5 m-t-5">
 
     <div class="float-left m-r-10">

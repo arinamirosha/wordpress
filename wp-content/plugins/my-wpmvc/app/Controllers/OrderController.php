@@ -329,23 +329,29 @@ class OrderController extends Controller {
 			}
 		}
 		if ( $column_name === 'order_status' ) {
+			$color = '';
 			switch ( get_post_meta( get_the_ID(), 'order_status', true ) ) {
 				case Order::WAIT:
-					echo 'Ожидание';
+					$text  = 'Ожидание';
 					break;
 				case Order::PROCESS:
-					echo 'Формируется';
+					$color = 'success';
+					$text  = 'Формируется';
 					break;
 				case Order::DELIVER:
-					echo 'Доставляется';
+					$color = 'warning';
+					$text  = 'Доставляется';
 					break;
 				case Order::READY:
-					echo 'Готов к выдаче';
+					$color = 'warning';
+					$text  = 'Готов к выдаче';
 					break;
 				case Order::FINISHED:
-					echo 'Завершен';
+					$color = 'danger';
+					$text  = 'Завершен';
 					break;
 			}
+			echo "<span class='$color'>$text</span>";
 		}
 	}
 

@@ -1,17 +1,3 @@
-<style>
-    #cancel-order-form {
-        display: inline;
-        float: right;
-    }
-</style>
-<script>
-    jQuery('document').ready(function () {
-        jQuery('#cancel-button').on('click', function () {
-            return confirm('Вы уверены, что хотите отменить? Заказ будет удален.');
-        })
-    })
-</script>
-
 <div class="wrap">
 
     <?php use MyWpmvc\Models\Order;

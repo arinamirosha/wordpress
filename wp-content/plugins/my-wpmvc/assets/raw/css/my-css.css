@@ -44,7 +44,31 @@
     color: #279d27;
 }
 
+.warning {
+    color: #e79400;;
+}
+
 #cancel-order-form {
     display: inline;
     float: right;
+}
+
+.float-left {
+    float: left;
+}
+
+.m-r-10 {
+    margin-right: 10px;
+}
+
+.m-b-5 {
+    margin-bottom: 5px;
+}
+
+.m-t-5 {
+    margin-top: 5px;
+}
+
+.m-t-10 {
+    margin-top: 10px;
 }
