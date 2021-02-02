@@ -271,18 +271,23 @@ function check_promocode_function() {
 }
 
 
-// Add admin page for showing order ('view' custom link from actions)
+// No actions (shopcart) and 'view' custom link from actions (shopcart_order)
 
 add_filter( 'post_row_actions', 'filter_function_name_2859', 10, 2 );
 function filter_function_name_2859( $actions, $post ) {
 	global $post_type;
 	if ( $post_type == 'shopcart_order' ) {
-		$actions         = [];
+		$actions         = array();
 		$actions['view'] = '<a href="' . get_admin_url() . '/admin.php?page=order_show&post=' . $post->ID . '" aria-label="Открыть заказ">Открыть</a>';
-	}
+	} elseif ( $post_type == 'shopcart' ) {
+		$actions = array();
+    }
 
 	return $actions;
 }
+
+// Add admin page for showing order
+
 add_action( 'admin_menu', 'add_my_wpmvc_page_post_show' );
 function add_my_wpmvc_page_post_show() {
 	add_menu_page( 'Открыть пост', 'order-show', 'edit_pages', 'order_show', 'order_show_output' );
