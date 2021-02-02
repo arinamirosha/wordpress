@@ -282,9 +282,11 @@ class OrderController extends Controller {
 				); ?>
 				<?php foreach ( $options as $key => $val ) : ?>
                     <option<?php
-					if ( ! isset( $_GET['meta_filter'] ) || $_GET['meta_filter'] == $key ) {
-						echo " selected";
-					}
+                    if ( ! isset( $_GET['meta_filter'] ) && $key == 0 ) {
+	                    echo " selected";
+                    } elseif ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == $key ) {
+	                    echo " selected";
+                    }
 					?> value="<?php echo $key; ?>"><?php echo $val; ?></option>
 				<?php endforeach; ?>
             </select>

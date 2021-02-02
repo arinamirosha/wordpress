@@ -3,7 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="remove delete action button">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/ShopCartController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +116,7 @@
       <workItem from="1612163058979" duration="24028000" />
       <workItem from="1612192903326" duration="4943000" />
       <workItem from="1612251387280" duration="4399000" />
-      <workItem from="1612265325475" duration="2200000" />
+      <workItem from="1612265325475" duration="3940000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -334,7 +335,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612266123659</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="insert first and last name of user to order form">
+      <created>1612267602721</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1612267602721</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +361,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="first commit" />
     <MESSAGE value="custom shopping cart: add and show" />
     <MESSAGE value="delete shopcart item button" />
     <MESSAGE value="custom quantity when adding to cart + correct sql when adding" />
@@ -378,6 +385,7 @@
     <MESSAGE value="no action on shopcart page" />
     <MESSAGE value="no actions on shopcart page" />
     <MESSAGE value="elementor update" />
-    <option name="LAST_COMMIT_MESSAGE" value="elementor update" />
+    <MESSAGE value="insert first and last name of user to order form" />
+    <option name="LAST_COMMIT_MESSAGE" value="insert first and last name of user to order form" />
   </component>
 </project>
