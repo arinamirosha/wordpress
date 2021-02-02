@@ -121,13 +121,13 @@ class Promocodes_List_Table extends WP_List_Table {
 	// вывод каждой ячейки таблицы...
 	function column_default( $item, $colname ) {
 		switch ( $colname ) {
-			case 'title':
-				$actions           = array();
-				// ссылка перестала работать, не удаляет и редирект на консоль
-				$actions['delete'] = '<a href="' . get_delete_post_link( $item->ID, '', true) . '">Удалить</a>';
-				$title             = $item->title ? $item->title : 'Untitled';
-
-				return $title . $this->row_actions( $actions );
+//			case 'title':
+//				$actions           = array();
+//				$url               = get_delete_post_link( $item->ID, '', true ); // ссылка перестала работать, не удаляет и редирект на консоль
+//				$url               = wp_nonce_url( get_admin_url() . 'post.php?post=' . $item->ID . '&action=delete' ); // ссылка устарела
+//				$actions['delete'] = '<a href="' . $url . '">Удалить</a>';
+//
+//				return $item->title . $this->row_actions( $actions );
 			case 'type_discount':
 				$t_discount = $item->type_discount;
 				if ( $t_discount == Promocode::PERCENT ) {
