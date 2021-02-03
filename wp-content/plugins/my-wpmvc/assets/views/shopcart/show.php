@@ -132,7 +132,7 @@
 
         <div class="row">
             <div class="col-sm-2"><label for="pickup">Самовывоз</label></div>
-            <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" <?php if ( ! $_POST['checkout'] || $_POST['pickup']) echo 'checked' ?>></div>
+            <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" <?php if ( ! $_POST['checkout'] || $_POST['pickup'] ) echo 'checked' ?>></div>
         </div>
 
         <div class="row pickup">
@@ -154,7 +154,9 @@
                 <?php else : ?>
                     <select name="city_key" id="city_key">
 	                    <?php foreach ( $cities_for_delivery as $key => $city ) : ?>
-                            <option value="<?php echo $key; ?>"><?php echo $city; ?></option>
+                            <option value="<?php echo $key; ?>"
+                                <?php if ( isset( $_POST['city_key'] ) && $_POST['city_key'] == $key ) echo ' selected'; ?>
+                            ><?php echo $city; ?></option>
 	                    <?php endforeach; ?>
                     </select>
 		            <?php if ( ! empty($form_errors) && $form_errors['city_key'] ) : ?>
