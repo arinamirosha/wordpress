@@ -35,6 +35,7 @@ class OrderController extends Controller {
 	public function save() {
 		$request_data = Request::all( 'sanitize_text_field' );
 		$form_errors  = sanitize_order_request( $request_data );
+
 		if ( ! empty( $form_errors ) ) {
 			$GLOBALS['form_errors'] = $form_errors;
 		} else {
@@ -62,6 +63,7 @@ class OrderController extends Controller {
 				$total += $shopcart->total_price;
 				$qty   += $shopcart->quantity;
 			}
+
 			$promocode_id = ( int ) $request_data['promocode_id'];
 			if ( $promocode_id ) {
 				$promocode = Promocode::find( $promocode_id );
@@ -73,8 +75,18 @@ class OrderController extends Controller {
 					$total              = $newTotal;
 				}
 			}
+
 			if ( $request_data['pickup'] ) {
-				$delivery_or_pickup = Order::PICKUP;
+				$delivery_or_pickup   = Order::PICKUP;
+				$addresses_for_pickup = get_option( 'addresses_for_pickup', [] );
+
+				if ( isset( $request_data['address_key'] ) ) {
+					$key     = $request_data['address_key'];
+					$address = $addresses_for_pickup[ $key ];
+				} elseif ( sizeof( $addresses_for_pickup ) == 1 ) {
+					$address = array_shift( $addresses_for_pickup );
+				}
+
 			} else {
 				$delivery_or_pickup  = Order::DELIVERY;
 				$address             = $request_data['address'];
@@ -99,6 +111,7 @@ class OrderController extends Controller {
 					$delivery_p = $delivery_price;
 				}
 			}
+
 			$order                     = new Order();
 			$order->title              = Carbon::now()->format( 'dmYHis' ) . get_current_user_id();
 			$order->shopcart_ids       = $ids;

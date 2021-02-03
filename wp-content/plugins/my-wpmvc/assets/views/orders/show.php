@@ -57,6 +57,7 @@
 
             case Order::PICKUP: ?>
                 <h2>САМОВЫВОЗ</h2>
+                <h2><?php echo $order->address ?></h2>
                 <?php break;
 
             case Order::DELIVERY: ?>

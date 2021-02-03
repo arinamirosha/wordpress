@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2401268-e057-4d1e-b902-15ec26b675f6" name="Default Changelist" comment="remove delete action button">
+      <change afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/admin/options_page.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OptionsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OptionsController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/app/Controllers/OrderController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/orders/show.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/assets/views/shopcart/show.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" beforeDir="false" afterPath="$PROJECT_DIR$/wp-content/plugins/my-wpmvc/functions.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,7 +122,7 @@
       <workItem from="1612192903326" duration="4943000" />
       <workItem from="1612251387280" duration="4399000" />
       <workItem from="1612265325475" duration="13453000" />
-      <workItem from="1612335188094" duration="8307000" />
+      <workItem from="1612335188094" duration="14891000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1611127947648</created>
@@ -391,7 +397,14 @@
       <option name="project" value="LOCAL" />
       <updated>1612343114450</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="option city_key selected if errors">
+      <created>1612343610342</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1612343610342</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -410,7 +423,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="correct relationship, count total price, sanitize order request outside controller" />
     <MESSAGE value="show promo codes list table in settings page" />
     <MESSAGE value="adding promo codes" />
     <MESSAGE value="apply promo code in order form" />
@@ -435,6 +447,7 @@
     <MESSAGE value="add option - cities for delivery" />
     <MESSAGE value="delete city option buttons" />
     <MESSAGE value="add city to address if option 'cities for delivery' is set" />
-    <option name="LAST_COMMIT_MESSAGE" value="add city to address if option 'cities for delivery' is set" />
+    <MESSAGE value="option city_key selected if errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="option city_key selected if errors" />
   </component>
 </project>

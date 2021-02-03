@@ -63,7 +63,7 @@ use MyWpmvc\Models\Order;
             <?php if ( $order->delivery_or_pickup == Order::PICKUP ) : ?>
                 <div class="col-sm-12">
                     Самовывоз:
-                    <?php echo esc_attr( get_option('address', '') ) ?>,
+                    <?php echo $order->address ? $order->address . ',' : ''; ?>
                     <?php echo esc_attr( get_option('schedule', '') ) ?>
                 </div>
             <?php else : ?>

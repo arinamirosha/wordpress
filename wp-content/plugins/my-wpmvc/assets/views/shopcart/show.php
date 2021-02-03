@@ -135,10 +135,32 @@
             <div class="col-sm-7"><input type="checkbox" id="pickup" name="pickup" <?php if ( ! $_POST['checkout'] || $_POST['pickup'] ) echo 'checked' ?>></div>
         </div>
 
-        <div class="row pickup">
-            <div class="col-sm-2"><strong>Адрес</strong></div>
-            <div class="col-sm-6"><?php echo esc_attr( get_option('address', '') ) ?></div>
-        </div>
+	    <?php $addresses_for_pickup = get_option( 'addresses_for_pickup', [] ); ?>
+	    <?php if ( ! empty( $addresses_for_pickup ) ) : ?>
+            <div class="row pickup">
+                <div class="col-sm-2"><label for="address_key">Адрес</label></div>
+                <div class="col-sm-6">
+				    <?php if ( sizeof( $addresses_for_pickup ) == 1 ) : ?>
+					    <?php echo array_shift( $addresses_for_pickup ); ?>
+				    <?php else : ?>
+                        <select name="address_key" id="address_key">
+						    <?php foreach ( $addresses_for_pickup as $key => $address ) : ?>
+                                <option value="<?php echo $key; ?>"
+								    <?php if ( isset( $_POST['address_key'] ) && $_POST['address_key'] == $key ) echo ' selected'; ?>
+                                ><?php echo $address; ?></option>
+						    <?php endforeach; ?>
+                        </select>
+					    <?php if ( ! empty($form_errors) && $form_errors['address_key'] ) : ?>
+                            <span class="danger">
+                            <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                            <?php echo $form_errors['address_key'] ?>
+                        </span>
+					    <?php endif; ?>
+				    <?php endif; ?>
+                </div>
+            </div>
+	    <?php endif; ?>
+
         <div class="row pickup">
             <div class="col-sm-2"><strong>График</strong></div>
             <div class="col-sm-6"><?php echo esc_attr( get_option('schedule', '') ) ?></div>

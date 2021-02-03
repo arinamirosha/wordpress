@@ -15,47 +15,70 @@ use WPMVC\Request;
  */
 class OptionsController extends Controller {
 	/**
-	 * Save or update cities_for_delivery option
+	 * Save or update cities_for_delivery or addresses_for_pickup option
 	 *
 	 * @return
 	 * @since 1.0.0
 	 */
 	public function save() {
-		$option = Request::input( 'city', 0, true, 'sanitize_text_field' );
+		if ( isset( $_POST['city'] ) ) {
+			$input    = 'city';
+			$opt_name = 'cities_for_delivery';
+		} elseif ( isset( $_POST['address'] ) ) {
+			$input    = 'address';
+			$opt_name = 'addresses_for_pickup';
+		} else {
+			$input    = '';
+			$opt_name = '';
+		}
+
+		$option = Request::input( $input, 0, true, 'sanitize_text_field' );
 		if ( ! $option || strlen( $option ) > 150 ) {
 			$GLOBALS['message'] = 'Ошибка: пустое поле / длина > 150 символов';
 
 			return;
 		}
 
-		$cities_for_delivery = get_option( 'cities_for_delivery', [] );
+		$cities_addresses = get_option( $opt_name, [] );
 
-		if ( empty( $cities_for_delivery ) ) {
-			add_option( 'cities_for_delivery', [ $option ] );
+		if ( empty( $cities_addresses ) ) {
+			add_option( $opt_name, [ $option ] );
 		} else {
-			array_push( $cities_for_delivery, $option );
-			update_option( 'cities_for_delivery', $cities_for_delivery );
+			array_push( $cities_addresses, $option );
+			update_option( $opt_name, $cities_addresses );
 		}
 	}
 
 	/**
-	 * Delete cities_for_delivery option by key
+	 * Delete cities_for_delivery or addresses_for_pickup option by key
 	 *
 	 * @return
 	 * @since 1.0.0
 	 */
 	public function delete() {
-		$key                 = Request::input( 'delete_option_city', 0, true, 'intval' );
-		$cities_for_delivery = get_option( 'cities_for_delivery', [] );
 
-		if ( $key >= 0 && array_key_exists( $key, $cities_for_delivery ) ) {
-			unset( $cities_for_delivery[ $key ] );
-			if ( empty( $cities_for_delivery ) ) {
-				if ( ! delete_option( 'cities_for_delivery' ) ) {
+		if ( isset( $_POST['delete_option_city'] ) ) {
+			$input    = 'delete_option_city';
+			$opt_name = 'cities_for_delivery';
+		} elseif ( isset( $_POST['delete_option_address'] ) ) {
+			$input    = 'delete_option_address';
+			$opt_name = 'addresses_for_pickup';
+		} else {
+			$input    = '';
+			$opt_name = '';
+		}
+
+		$key              = Request::input( $input, 0, true, 'intval' );
+		$cities_addresses = get_option( $opt_name, [] );
+
+		if ( $key >= 0 && array_key_exists( $key, $cities_addresses ) ) {
+			unset( $cities_addresses[ $key ] );
+			if ( empty( $cities_addresses ) ) {
+				if ( ! delete_option( $opt_name ) ) {
 					$GLOBALS['message'] = 'Удаление настроек вызвало ошибку. Настройки удалить не удалось!';
 				}
 			} else {
-				update_option( 'cities_for_delivery', $cities_for_delivery );
+				update_option( $opt_name, $cities_addresses );
 			}
 		} else {
 			$GLOBALS['message'] = 'Ошибка!';
