@@ -116,7 +116,15 @@ function sanitize_order_request( $request_data ) {
 			$form_errors[ $v ] = $error;
 		}
 	}
+
 	if ( ! $request_data['pickup'] ) {
+		if ( isset( $request_data['city_key'] ) ) {
+			$key                 = (int) $request_data['city_key'];
+			$cities_for_delivery = get_option( 'cities_for_delivery', [] );
+			if ( ! ( $key >= 0 && array_key_exists( $key, $cities_for_delivery ) ) ) {
+				$form_errors['city_key'] = 'Ошибка!';
+			}
+		}
 		if ( $error = sanitize_string( $request_data['address'], 150 ) ) {
 			$form_errors['address'] = $error;
 		}
@@ -172,13 +180,14 @@ add_action( 'admin_menu', 'add_my_wpmvc_page' );
 function add_my_wpmvc_page() {
 	add_menu_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
 }
+
 function my_wpmvc_options_page_output() {
 	if ( ! empty( $_POST ) ) {
-	    if ( isset($_POST['city']) ) {
-		    OptionsController::save();
-        } elseif ( isset($_POST['delete_option_city']) ) {
-		    OptionsController::delete();
-        }
+		if ( isset( $_POST['city'] ) ) {
+			OptionsController::save();
+		} elseif ( isset( $_POST['delete_option_city'] ) ) {
+			OptionsController::delete();
+		}
 	}
 	?>
     <div class="wrap">
@@ -191,26 +200,30 @@ function my_wpmvc_options_page_output() {
 			?>
         </form>
 
-	    <?php if ( isset($GLOBALS['message']) ) echo '<strong>' . $GLOBALS['message'] . '</strong>'; ?>
+		<?php if ( isset( $GLOBALS['message'] ) ) {
+			echo '<strong>' . $GLOBALS['message'] . '</strong>';
+		} ?>
 
         <table class="form-table">
             <tr>
                 <th>Города для доставки</th>
                 <td>
-				    <?php $cities_for_delivery = get_option( 'cities_for_delivery', [] ); ?>
-	                <?php if ( ! empty( $cities_for_delivery ) ) : ?>
+					<?php $cities_for_delivery = get_option( 'cities_for_delivery', [] ); ?>
+					<?php if ( ! empty( $cities_for_delivery ) ) : ?>
 
-		                <?php foreach ( $cities_for_delivery as $key => $city ) : ?>
+						<?php foreach ( $cities_for_delivery as $key => $city ) : ?>
                             <form action="" method="post">
-	                            <?php echo $city ?>
+								<?php echo $city ?>
                                 <input type="hidden" name="delete_option_city" value="<?php echo $key; ?>">
-                                <button type="submit" class="del-button--no-style bg-admin hover-underline danger">Удалить</button>
+                                <button type="submit" class="del-button--no-style bg-admin hover-underline danger">
+                                    Удалить
+                                </button>
                             </form>
-		                <?php endforeach; ?>
+						<?php endforeach; ?>
 
-				    <?php else : ?>
-				        Пусто
-                    <?php endif; ?>
+					<?php else : ?>
+                        Пусто
+					<?php endif; ?>
                 </td>
             </tr>
             <tr>
@@ -235,6 +248,7 @@ function my_wpmvc_options_page_output() {
     </div>
 	<?php
 }
+
 add_action( 'admin_init', 'my_wpmvc_settings' );
 function my_wpmvc_settings() {
 	register_setting( 'option_group', 'address', 'string' );
@@ -244,21 +258,29 @@ function my_wpmvc_settings() {
 
 	add_settings_section( 'section_id', 'Основные настройки', '', 'my_wpmvc_page' );
 
-	add_settings_field( 'my_wpmvc_field1', '<label for="address">Адрес</label>', 'fill_address_field', 'my_wpmvc_page', 'section_id' );
-	add_settings_field( 'my_wpmvc_field2', '<label for="schedule">График работы</label>', 'fill_schedule_field', 'my_wpmvc_page', 'section_id' );
-	add_settings_field( 'my_wpmvc_field3', '<label for="delivery_price">Стоимость доставки</label>', 'fill_delivery_price_field', 'my_wpmvc_page', 'section_id' );
-	add_settings_field( 'my_wpmvc_field4', '<label for="free_delivery_from">Бесплатно от</label>', 'fill_free_delivery_from_field', 'my_wpmvc_page', 'section_id' );
+	add_settings_field( 'my_wpmvc_field1', '<label for="address">Адрес</label>', 'fill_address_field', 'my_wpmvc_page',
+		'section_id' );
+	add_settings_field( 'my_wpmvc_field2', '<label for="schedule">График работы</label>', 'fill_schedule_field',
+		'my_wpmvc_page', 'section_id' );
+	add_settings_field( 'my_wpmvc_field3', '<label for="delivery_price">Стоимость доставки</label>',
+		'fill_delivery_price_field', 'my_wpmvc_page', 'section_id' );
+	add_settings_field( 'my_wpmvc_field4', '<label for="free_delivery_from">Бесплатно от</label>',
+		'fill_free_delivery_from_field', 'my_wpmvc_page', 'section_id' );
 }
+
 function fill_address_field() {
 	printf( '<input type="text" name="address" value="%s" />', esc_attr( get_option( 'address', '' ) ) );
 }
+
 function fill_schedule_field() {
 	printf( '<input type="text" name="schedule" value="%s" />', esc_attr( get_option( 'schedule', '' ) ) );
 }
+
 function fill_delivery_price_field() {
 	printf( '<input type="number" min="0" step="10" name="delivery_price" value="%s" /> руб.',
 		esc_attr( get_option( 'delivery_price', 0 ) ) );
 }
+
 function fill_free_delivery_from_field() {
 	printf( '<input type="number" min="0" step="10" name="free_delivery_from" value="%s" /> руб.',
 		esc_attr( get_option( 'free_delivery_from', 0 ) ) );
@@ -275,6 +297,7 @@ function my_wpmvc_submenu() {
 		'manage_options', 'my_wpmvc_promocodes', 'my_wpmvc_promocodes_page_output' );
 	add_action( "load-$hook", 'promocodes_table_page_load' );
 }
+
 function promocodes_table_page_load() {
 
 	if ( ! empty( $_POST ) && isset( $_POST['add_new'] ) ) {
@@ -284,6 +307,7 @@ function promocodes_table_page_load() {
 	require_once ABSPATH . 'wp-content/plugins/my-wpmvc/app/class-Promocodes_List_Table.php';
 	$GLOBALS['Promocodes_List_Table'] = new Promocodes_List_Table();
 }
+
 function my_wpmvc_promocodes_page_output() {
 	?>
     <div class="wrap">
@@ -325,6 +349,7 @@ add_action( 'admin_menu', 'add_my_wpmvc_page_post_show' );
 function add_my_wpmvc_page_post_show() {
 	add_menu_page( 'Открыть пост', 'order-show', 'edit_pages', 'order_show', 'order_show_output' );
 }
+
 function order_show_output() {
 	if ( isset( $_POST ) && ! empty( $_POST ) ) {
 		if ( isset( $_POST['update'] ) ) {
@@ -335,6 +360,7 @@ function order_show_output() {
 	}
 	OrderController::show();
 }
+
 add_action( 'admin_menu', 'remove_admin_menu' );
 function remove_admin_menu() {
 	remove_menu_page( 'order_show' );
@@ -342,16 +368,18 @@ function remove_admin_menu() {
 
 // Load styles and scripts to admin
 
-function my_stylesheet_and_scripts(){
-	wp_enqueue_style("my-style-admin",plugins_url() . '/my-wpmvc/assets/css/app.css');
-	wp_enqueue_script("my-script-admin",plugins_url() . '/my-wpmvc/assets/js/app.js');
+function my_stylesheet_and_scripts() {
+	wp_enqueue_style( "my-style-admin", plugins_url() . '/my-wpmvc/assets/css/app.css' );
+	wp_enqueue_script( "my-script-admin", plugins_url() . '/my-wpmvc/assets/js/app.js' );
 }
-add_action('admin_head', 'my_stylesheet_and_scripts');
+
+add_action( 'admin_head', 'my_stylesheet_and_scripts' );
 
 
 // AJAX
 
-add_action( 'wp_ajax_check_promocode', 'check_promocode_function' ); // wp_ajax_{значение параметра action} для авторизованных
+add_action( 'wp_ajax_check_promocode',
+	'check_promocode_function' ); // wp_ajax_{значение параметра action} для авторизованных
 function check_promocode_function() {
 	PromocodesController::check_promocode();
 }

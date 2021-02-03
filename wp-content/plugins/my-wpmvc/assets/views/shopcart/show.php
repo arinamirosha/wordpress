@@ -144,6 +144,30 @@
             <div class="col-sm-6"><?php echo esc_attr( get_option('schedule', '') ) ?></div>
         </div>
 
+        <?php $cities_for_delivery = get_option( 'cities_for_delivery', [] ); ?>
+        <?php if ( ! empty( $cities_for_delivery ) ) : ?>
+        <div class="row delivery">
+            <div class="col-sm-2"><label for="city_key">Город</label></div>
+            <div class="col-sm-6">
+	            <?php if ( sizeof( $cities_for_delivery ) == 1 ) : ?>
+                    <?php echo array_shift( $cities_for_delivery ); ?>
+                <?php else : ?>
+                    <select name="city_key" id="city_key">
+	                    <?php foreach ( $cities_for_delivery as $key => $city ) : ?>
+                            <option value="<?php echo $key; ?>"><?php echo $city; ?></option>
+	                    <?php endforeach; ?>
+                    </select>
+		            <?php if ( ! empty($form_errors) && $form_errors['city_key'] ) : ?>
+                        <span class="danger">
+                            <i class="fa fa-exclamation fa-lg" aria-hidden="true"></i>
+                            <?php echo $form_errors['city_key'] ?>
+                        </span>
+		            <?php endif; ?>
+	            <?php endif; ?>
+            </div>
+        </div>
+	    <?php endif; ?>
+
         <div class="row delivery">
             <div class="col-sm-2"><label for="address">Адрес</label></div>
             <div class="col-sm-6"><input type="text" name="address" id="address" value="<?php echo $_POST['address'] ?>">

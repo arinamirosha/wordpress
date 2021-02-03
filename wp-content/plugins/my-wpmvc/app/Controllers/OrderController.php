@@ -76,10 +76,19 @@ class OrderController extends Controller {
 			if ( $request_data['pickup'] ) {
 				$delivery_or_pickup = Order::PICKUP;
 			} else {
-				$delivery_or_pickup = Order::DELIVERY;
-				$address            = $request_data['address'];
-				$delivery_price     = get_option( 'delivery_price', 0 );
-				$free_from          = get_option( 'free_delivery_from', 0 );
+				$delivery_or_pickup  = Order::DELIVERY;
+				$address             = $request_data['address'];
+				$cities_for_delivery = get_option( 'cities_for_delivery', [] );
+
+				if ( isset( $request_data['city_key'] ) ) {
+					$key     = $request_data['city_key'];
+					$address = $cities_for_delivery[ $key ] . ', ' . $address;
+				} elseif ( sizeof( $cities_for_delivery ) == 1 ) {
+					$address = array_shift( $cities_for_delivery ) . ', ' . $address;
+				}
+
+				$delivery_price = get_option( 'delivery_price', 0 );
+				$free_from      = get_option( 'free_delivery_from', 0 );
 				if ( $delivery_price
 				     && ( ! $free_from
 				          || $free_from
@@ -282,11 +291,11 @@ class OrderController extends Controller {
 				); ?>
 				<?php foreach ( $options as $key => $val ) : ?>
                     <option<?php
-                    if ( ! isset( $_GET['meta_filter'] ) && $key == 0 ) {
-	                    echo " selected";
-                    } elseif ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == $key ) {
-	                    echo " selected";
-                    }
+					if ( ! isset( $_GET['meta_filter'] ) && $key == 0 ) {
+						echo " selected";
+					} elseif ( isset( $_GET['meta_filter'] ) && $_GET['meta_filter'] == $key ) {
+						echo " selected";
+					}
 					?> value="<?php echo $key; ?>"><?php echo $val; ?></option>
 				<?php endforeach; ?>
             </select>
@@ -332,7 +341,7 @@ class OrderController extends Controller {
 			$color = '';
 			switch ( get_post_meta( get_the_ID(), 'order_status', true ) ) {
 				case Order::WAIT:
-					$text  = 'Ожидание';
+					$text = 'Ожидание';
 					break;
 				case Order::PROCESS:
 					$color = 'success';
