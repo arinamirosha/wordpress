@@ -72,3 +72,11 @@
 .m-t-10 {
     margin-top: 10px;
 }
+
+.bg-admin {
+    background-color: #f1f1f1;
+}
+
+.hover-underline:hover {
+    text-decoration: underline;
+}

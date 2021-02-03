@@ -173,8 +173,12 @@ function add_my_wpmvc_page() {
 	add_menu_page( 'Настройки my-wpmvc', 'my-wpmvc', 'manage_options', 'my_wpmvc', 'my_wpmvc_options_page_output' );
 }
 function my_wpmvc_options_page_output() {
-	if ( ! empty( $_POST ) && isset($_POST['city'])) {
-		OptionsController::save();
+	if ( ! empty( $_POST ) ) {
+	    if ( isset($_POST['city']) ) {
+		    OptionsController::save();
+        } elseif ( isset($_POST['delete_option_city']) ) {
+		    OptionsController::delete();
+        }
 	}
 	?>
     <div class="wrap">
@@ -187,18 +191,26 @@ function my_wpmvc_options_page_output() {
 			?>
         </form>
 
+	    <?php if ( isset($GLOBALS['message']) ) echo '<strong>' . $GLOBALS['message'] . '</strong>'; ?>
+
         <table class="form-table">
             <tr>
                 <th>Города для доставки</th>
                 <td>
-				    <?php
-				    $cities_for_delivery = get_option( 'cities_for_delivery', [] );
-				    if ( ! empty( $cities_for_delivery ) ) {
-					    echo implode( ', ', $cities_for_delivery );
-				    } else {
-				        echo 'Пусто';
-				    }
-				    ?>
+				    <?php $cities_for_delivery = get_option( 'cities_for_delivery', [] ); ?>
+	                <?php if ( ! empty( $cities_for_delivery ) ) : ?>
+
+		                <?php foreach ( $cities_for_delivery as $key => $city ) : ?>
+                            <form action="" method="post">
+	                            <?php echo $city ?>
+                                <input type="hidden" name="delete_option_city" value="<?php echo $key; ?>">
+                                <button type="submit" class="del-button--no-style bg-admin hover-underline danger">Удалить</button>
+                            </form>
+		                <?php endforeach; ?>
+
+				    <?php else : ?>
+				        Пусто
+                    <?php endif; ?>
                 </td>
             </tr>
             <tr>
@@ -208,7 +220,6 @@ function my_wpmvc_options_page_output() {
                         <input type="text" id="city" name="city">
                         <button class="button" type="submit">Добавить</button>
                     </form>
-				    <?php if ( isset($GLOBALS['message']) ) echo $GLOBALS['message']; ?>
                 </td>
             </tr>
         </table>
